@@ -10,7 +10,7 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="static/css/style.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
     
     {% block extra_css %}{% endblock %}
 </head>
@@ -55,7 +55,7 @@
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="background-color: #ffffff !important;">
         <div class="container">
             <div class="navbar-brand" style="pointer-events: none; user-select: none; background: transparent !important;">
-                <img src="static/images/kemah-final-logo.png" alt="Kemah Logo" style="height: 90px; width: auto; display: block; pointer-events: none; user-select: none; background: transparent !important; opacity: 0.95; mix-blend-mode: multiply; filter: brightness(1.1) contrast(1.05);">
+                <img src="{{ url_for('static', filename='images/kemah-final-logo.png') }}" alt="Kemah Logo" style="height: 90px; width: auto; display: block; pointer-events: none; user-select: none; background: transparent !important; opacity: 0.95; mix-blend-mode: multiply; filter: brightness(1.1) contrast(1.05);">
             </div>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -427,7 +427,7 @@
     </script>
     
     <!-- Custom JS -->
-    <script src="static/js/main.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     
     {% block extra_js %}{% endblock %}
 </body>

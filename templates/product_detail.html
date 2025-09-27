@@ -24,7 +24,7 @@
                     <div class="main-image mb-3">
                         <div class="bg-light d-flex align-items-center justify-content-center" style="height: 400px; border-radius: 10px;">
                             {% if product.image %}
-                                <img src="static/uploads/{{ product.image }}" 
+                                <img src="{{ url_for('static', filename='uploads/' + product.image) }}" 
                                      alt="{{ product.name }}" class="img-fluid" style="max-height: 380px;">
                             {% else %}
                                 <i class="fas fa-image text-muted" style="font-size: 5rem;"></i>
@@ -36,7 +36,7 @@
                     {% if product.images %}
                         <div class="thumbnail-images d-flex gap-2">
                             <div class="thumbnail active" style="width: 80px; height: 80px; border-radius: 5px; overflow: hidden; cursor: pointer;">
-                                <img src="static/uploads/{{ product.image }}" 
+                                <img src="{{ url_for('static', filename='uploads/' + product.image) }}" 
                                      alt="{{ product.name }}" class="img-fluid w-100 h-100" style="object-fit: cover;">
                             </div>
                             <!-- Diğer resimler için placeholder -->
@@ -185,7 +185,7 @@
                             <div class="card product-card h-100 shadow-sm">
                                 <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
                                     {% if related_product.image %}
-                                        <img src="static/uploads/{{ related_product.image }}" 
+                                        <img src="{{ url_for('static', filename='uploads/' + related_product.image) }}" 
                                              alt="{{ related_product.name }}" class="img-fluid" style="max-height: 180px;">
                                     {% else %}
                                         <i class="fas fa-image text-muted" style="font-size: 3rem;"></i>
