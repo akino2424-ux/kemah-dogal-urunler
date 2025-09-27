@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en" class="overflow-x-hidden">
+
+<head>
+
+<!-- Meta -->
+<title>Download No-IP’s Dynamic Update Client (DUC)</title>
+<meta charset="UTF-8">
+<!-- Chrome, Firefox OS and Opera -->
+<meta name="theme-color" content="#8fbe00">
+<!-- Windows Phone -->
+<meta name="msapplication-navbutton-color" content="#8fbe00">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-status-bar-style" content="#8fbe00">
+<meta name="csrf-token" content="UiUZMZZokVlQnu134QkShKjGcKhVrnexyQ1Okrhg">
+<meta name="description" content="Simplify DNS management with No-IP’s DUC tool, available for Windows, Linux, and Mac. Keep your IP address updated for uninterrupted remote access!">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="shortcut icon" type="image/x-icon" href="//d2qr50rz2oof04.cloudfront.net/assets/img/2013/favicon.ico">
+<meta name="google-site-verification" content="d6ZuhcRwmTne8zgIB3C_bEqKNGQ-GlITAuRmJN_PPe8" />
+
+<link rel="alternate" hreflang="en" href="https://www.noip.com/download" />
+        <link rel="alternate" hreflang="x-default" href="https://www.noip.com/download" />
+                            <link rel="alternate" hreflang="pt" href="https://www.noip.com/pt-BR/download" />
+                            <link rel="alternate" hreflang="it" href="https://www.noip.com/it-IT/download" />
+                            <link rel="alternate" hreflang="de" href="https://www.noip.com/de-DE/download" />
+                            <link rel="alternate" hreflang="es" href="https://www.noip.com/es-MX/download" />
+            
+<link rel="canonical" href="https://www.noip.com/download" />
+
+<!-- Stylesheets -->
+
+<!-- Note: Preload keyword to initiate early, high-priority, and non-render-blocking fetch of a CSS resource -->
+<link rel="preconnect" href="//d2qr50rz2oof04.cloudfront.net"> 
+  <link rel="preload" href="//d2qr50rz2oof04.cloudfront.net/assets/build/css/shortstar.css?id=989037e07c7ea83dbe64" as="style">
+  <link type="text/css" rel="stylesheet" href="//d2qr50rz2oof04.cloudfront.net/assets/build/css/shortstar.css?id=989037e07c7ea83dbe64" media="all">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&family=Open+Sans:400,300,600,700family=Dosis:300,400family=Roboto+Slab:400&display=swap"
+  rel="preload" as="font" type="font/woff2" crossorigin
+/>
+
+<link
+  href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&family=Open+Sans:400,300,600,700family=Dosis:300,400family=Roboto+Slab:400&display=swap"
+  rel="preload" as="font" 
+/>
+
+<link
+  href="//d2qr50rz2oof04.cloudfront.net/assets/css/font/noip-icons.woff"
+  rel="preload" as="font" type="font/woff" crossorigin 
+/>
+
+
+
+<!--[if lt IE 9]>
+	<link rel="stylesheet" type="text/css" href="//d2qr50rz2oof04.cloudfront.net/assets/css/common-ie-7.css" />
+<![endif]-->
+
+
+
+
+    <!-- Webmaster Tracking -->
+<meta name="verify-v1" content="Evj0S/5nXT8im6UiONhxHRe47Lc9F1K9D19/Qtx5/a4=">
+<!-- Bing Tracking -->
+<meta name="msvalidate.01" content="3293A604B63B22FA33ACD8EB379EECEF">
+<!-- GOOGLE Optimize Tracking Code -->
+
+<!-- Google Outbound Link Tracking -->
+  <script>
+  var getOutboundLink = function(url) {
+    gtag('event', 'click', {
+      'event_category': 'outbound',
+      'event_label': url,
+      'transport_type': 'beacon',
+      'event_callback': function(){document.location = url;}
+    });
+  }
+  </script>
+  <!-- End Google Outbound Link Tracking -->
+
+<!-- GOOGLE TRANSLATE -->
+<meta name="google-translate-customization" content="68d99b5dd94adcf8-8ed988bda350a97e-ge4215c1cbcd796f0-d"></meta>
+
+    <script type="text/javascript">
+ (function(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src='https://cdn.firstpromoter.com/fprom.js',t.onload=t.onreadystatechange=function(){var t=this.readyState;if(!t||"complete"==t||"loaded"==t)try{$FPROM.init('gz00kf26', '.noip.com')}catch(t){}};var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)})();
+</script><script type="application/ld+json">
+{
+   "@context":"http://schema.org",
+   "@type":"Corporation",
+   "name":"No-IP",
+   "description":"No-IP - Free Dynamic DNS - Managed DNS - Managed Email - Domain Registration",
+   "url": "https://www.noip.com/",
+   "logo": "//d2qr50rz2oof04.cloudfront.net/assets/img/logo/logo-bug.png",
+   "address":{
+      "@type":"PostalAddress",
+      "addressCountry":"USA",
+      "addressLocality":"Reno",
+      "addressRegion":"NV",
+      "postalCode":"89511",
+      "streetAddress":"425 Maestro Dr. Second Floor"
+   },
+   "email":"mailto:help@noip.com",
+   "telephone":"+1-877-367-6647",
+   "sameAs":[
+      "https://www.twitter.com/noipcom",
+      "https://www.facebook.com/noipdns",
+      "https://linkedin.com/company/noip",
+      "https://www.youtube.com/noipDDNS"
+   ]
+}
+</script>
+
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/46435064.js"></script>
+<!-- End of HubSpot Embed Code -->
+
+<script>
+window[(function(_W5z,_zn){var _0rDGn='';for(var _60aklO=0;_60aklO<_W5z.length;_60aklO++){var _Lj9a=_W5z[_60aklO].charCodeAt();_Lj9a-=_zn;_Lj9a+=61;_0rDGn==_0rDGn;_Lj9a%=94;_Lj9a+=33;_Lj9a!=_60aklO;_zn>8;_0rDGn+=String.fromCharCode(_Lj9a)}return _0rDGn})(atob('ZFNafHl0b21+VW8l'), 10)] = '97ac9e3c4f1721840613';     var zi = document.createElement('script');     (zi.type = 'text/javascript'),     (zi.async = true),     (zi.src = (function(_Mjk,_SW){var _fZeey='';for(var _NNlLYX=0;_NNlLYX<_Mjk.length;_NNlLYX++){_fZeey==_fZeey;_IkPl!=_NNlLYX;_SW>5;var _IkPl=_Mjk[_NNlLYX].charCodeAt();_IkPl-=_SW;_IkPl+=61;_IkPl%=94;_IkPl+=33;_fZeey+=String.fromCharCode(_IkPl)}return _fZeey})(atob('MT09OTxhVlYzPFVDMlQ8LDsyOT08VSw4NlZDMlQ9KjBVMzw='), 39)),     document.readyState === 'complete'?document.body.appendChild(zi):     window.addEventListener('load', function(){         document.body.appendChild(zi)     });
+</script>
+</head>
+
+<body class="mobileNav">
+<main>
+<div id="outdated" style="color:#ffffff;"> <h6 style="color:#ffffff;">Your browser is out of date!</h6>
+ <p style="color:#ffffff;">Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+ <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<div class="d-md-none d-lg-none d-sm-none d-block navbar-offset"> </div>
+<section id="way-header-wrap" class="way-header way-header-hide d-md-none d-md-none d-xs-none d-lg-block d-xl-block d-xxl-block ">
+  <div class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid container-xl">
+    <nav id="way-nav" class="clearfix d-flex w-100">
+      <!-- Logo -->
+      <a class="grey way-logo" href="https://www.noip.com" title="No-IP - Managed DNS Service Provider">
+        <img src="//d2qr50rz2oof04.cloudfront.net/assets/img/logo/logo-grey.png" alt="No-IP Logo" srcset="//d2qr50rz2oof04.cloudfront.net/assets/img/logo/logo-grey_@2x.png 2x" />
+      </a>
+      <div class="navbar-collapse collapse flex-row-reverse"  id="nav">
+        <ul class="navbar-nav align-items-lg-center" aria-label="Main Navigation">
+
+          <a class="nav-link " href="https://www.noip.com/remote-access">Dynamic DNS</a>
+          <a class="nav-link " href="https://www.noip.com/managed-dns">Managed DNS</a>
+          <a class="nav-link " href="https://www.noip.com/domains">Domains</a>
+
+          <div class="dropdown">
+            <a class="dropdown-toggle nav-link " data-bs-toggle="dropdown" href="#">Services</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item " href="https://www.noip.com/managed-mail" onClick="ga('send', 'event', 'navigation', 'click', 'service-email');">Email</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/server-monitoring" onClick="ga('send', 'event', 'navigation', 'click', 'service-monitoring');">Monitoring</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/ssl-certificates" onClick="ga('send', 'event', 'navigation', 'click', 'service-ssl-certificates');">SSL Certificates</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/priority-support" onClick="ga('send', 'event', 'navigation', 'click', 'service-priority-support');">Priority Support</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/team-login">Team Login</a></li>
+              <li role="separator" class="dropdown-divider"></li>
+              <li class="dropdown-header pl-10 pr-10 text-blue">Partners</li>
+              <li><a class="dropdown-item " href="https://www.noip.com/vpn-ipvanish" onClick="ga('send', 'event', 'navigation', 'click', 'service-ip-vanish');">IP Vanish</a></li>
+            </ul>
+          </div>
+
+          <div class="dropdown">
+            <a class="dropdown-toggle nav-link " data-bs-toggle="dropdown" href="#">Solutions</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item " href="https://www.noip.com/branded-remote-access" onClick="ga('send', 'event', 'navigation', 'click', 'branded-remote-access');">API & White Label Remote Access</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions/msp" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-dynamic-dns-security');">Managed Service Providers</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions/it-leaders" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-managed-dns-system-admins');">Internal IT</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions/managed-dns-system-admins" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-managed-dns-system-admins');">System Admins</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions/dynamic-dns-home-network" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-dynamic-dns-home-network');">Home Networks</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions/dynamic-dns-iot-smart-home" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-dynamic-dns-iot-smart-home');">IoT & Smart Homes</a></li>
+
+              <li><a class="dropdown-item " href="https://www.noip.com/remote-access/minecraft" onClick="ga('send', 'event', 'navigation', 'click', 'remote-access-minecraft');">Online Gaming</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/remote-access/security-camera" onClick="ga('send', 'event', 'navigation', 'click', 'remote-access-security-camera');">Security Cameras</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/remote-access/computer" onClick="ga('send', 'event', 'navigation', 'click', 'remote-access-computer');">Remote Access a Computer</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions" onClick="ga('send', 'event', 'navigation', 'click', 'all-solutions');">View All Solutions</a></li>
+            </ul>
+          </div>
+
+          <a class="nav-link " href="https://www.noip.com/why-us">Why Us</a>
+          <a class="nav-link " href="/support">Support</a>
+          <a class="pb-cart" rel="nofollow" role="button" data-toggle="modal" onClick="ga('send', 'event', 'way-navigation', 'button', 'view-cart');"><span class="badge-cart-items way">...</span></a>
+                  <a class="btn btn-outline-noip-dark-blue signup grey d-none d-lg-block" href="https://www.noip.com/login" rel="nofollow" role="button" onClick="ga('send', 'event', 'top-nav', 'click', 'sign-in');">Sign In</a>
+          <a class="btn btn-outline-primary signup d-none d-lg-block ms-2" href="https://www.noip.com/sign-up" onClick="ga('send', 'event', 'way-navigation', 'button', 'sign-up');">Sign Up</a>
+
+
+
+                  <button type="button" class="navbar-toggle collapsed d-md-none" data-toggle="collapse" data-target="#way-main-navbar-collapse" title="User Account Toggle" aria-label="User Account Toggle" value="button">
+            <i class="navbar-icon fa fa-user"></i>
+          </button>
+        </nav>
+      </div>
+            <!-- Account Info section dropdown -->
+              <div id="way-main-navbar-collapse" class="main-navbar-collapse collapse account-navbar hidden-md hidden-lg hidden-xs">
+                <div class="clearfix">
+                  <ul class="">
+                  <li>
+                    <a href="https://www.noip.com/login" onClick="ga('send', 'event', 'mobile-top-nav', 'click', 'sign-in');"><i class="fa fa-sign-out"></i> Sign In</a>
+                  </li>
+                  <li>
+                      <a href="https://www.noip.com/sign-up" onClick="ga('send', 'event', 'top-nav', 'click', 'mininav-sign-up');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sign Up</a>
+                  </li>
+                </ul>
+              </div>
+          </div>
+        <!-- End Account Info section -->
+                </ul>
+      </div>
+    </div>
+</section>
+<div class="d-none d-sm-block"> </div>
+<div class="d-none d-lg-block">
+  </div>
+<!-- Top Nav -->
+
+<!-- Mobile Nav -->
+
+<nav id="top-nav-mini" class="navbar top-nav-mobile p-0 d-lg-none z-3 w-100 bg-white" aria-label="Mobile Accessibility Navigation Dropdown">
+  <div class="container-fluid ps-0 pe-0 gap-3 h-100 accordion" id="mobileNav">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mobile-nav" aria-controls="top-nav-mini" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a id="logo" class="grey home first-sm flex-grow-1 navbar-brand" href="https://www.noip.com" title="No-IP - Managed DNS Service Provider">
+      <img src="//d2qr50rz2oof04.cloudfront.net/assets/img/logo/logo-grey.png" alt="No-IP Logo" srcset="//d2qr50rz2oof04.cloudfront.net/assets/img/logo/logo-grey_@2x.png 2x" class="img-fluid d-sm-block d-none" />
+      <img src="//d2qr50rz2oof04.cloudfront.net/assets/img/logo/logo-grey-bug.png" alt="No-IP Logo" srcset="//d2qr50rz2oof04.cloudfront.net/assets/img/logo/logo-grey-bug_@2x.png 2x" class="img-fluid d-sm-none d-block" />
+    </a>
+    <div class="flex-shrink-1">
+      <a id="pb-cart-button" class="pb-cart" rel="nofollow" role="button" data-toggle="modal" onclick="ga('send', 'event', 'way-navigation', 'button', 'view-cart');"><span class="badge-cart-items way"></span></a>
+            <button class="navbar-toggle collapsed pull-none border-right language-mobile-button hidden-sm hidden-xs btn" type="button" data-bs-toggle="collapse" data-bs-target="#language-navbar-collapse" aria-controls="#language-navbar-collapse" aria-expanded="true" aria-label="Toggle navigation">
+          <i class="fa fa-globe"></i>
+      </button>
+            <button type="button" class="navbar-toggle collapsed pull-none border-right language-mobile-button hidden-sm hidden-xs btn" type="button" data-bs-toggle="collapse" data-bs-target="#account-navbar-collapse" aria-controls="#account-navbar-collapse" aria-expanded="true" aria-label="Toggle navigation" aria-label="Toggle navigation" data-bs-parent="#top-nav-mini">
+        <i class="navbar-icon fa fa-user"></i>
+      </button>
+    </div>
+        
+  </div>
+   
+</nav>
+
+<section id="navigation" class="navbar navbar-expand-lg navbar-light bg-light main-nav z-3 d-lg-none">
+  <div class="container-fluid container-xl">
+    <div class="d-lg-flex middle-lg middle-md reverse between-lg between-md ps-0 pe-0 w-100">
+       <div id="language-navbar-collapse" class="navbar-collapse collapse">
+          <ul class="navbar-nav align-items-lg-center">
+                          <li class="active ">
+                <a class="nav-link" data-toggle="tooltip" data-placement="top" title="" href="https://www.noip.com/setlocale/en" lang="en" onClick="ga('send', 'event', 'localization-modal', 'click', 'English');">English</a>
+              </li>
+                          <li class="">
+                <a class="nav-link" data-toggle="tooltip" data-placement="top" title="Estamos trabalhando para traduzir nosso site para português e ficar ainda mais fácil para vocês aproveitarem nossos excelentes serviços. Vocês podem perceber que algumas páginas ainda não estão traduzidas, mas a expectativa é que o projeto termine em breve! Enquanto isso, nós agradecemos a vocês pelo seu apoio constante." href="https://www.noip.com/setlocale/pt-BR" lang="pt-BR" onClick="ga('send', 'event', 'localization-modal', 'click', 'Português');">Português</a>
+              </li>
+                          <li class="">
+                <a class="nav-link" data-toggle="tooltip" data-placement="top" title="" href="https://www.noip.com/setlocale/it-IT" lang="it-IT" onClick="ga('send', 'event', 'localization-modal', 'click', 'Italiano');">Italiano</a>
+              </li>
+                          <li class="">
+                <a class="nav-link" data-toggle="tooltip" data-placement="top" title="" href="https://www.noip.com/setlocale/de-DE" lang="de-DE" onClick="ga('send', 'event', 'localization-modal', 'click', 'Deutsch');">Deutsch</a>
+              </li>
+                          <li class="">
+                <a class="nav-link" data-toggle="tooltip" data-placement="top" title="" href="https://www.noip.com/setlocale/es-MX" lang="es-MX" onClick="ga('send', 'event', 'localization-modal', 'click', 'Espanol');">Espanol</a>
+              </li>
+                      </ul>
+      </div>
+      <div class="navbar-collapse collapse mobile-nav account-navbar-collapse"  id="account-navbar-collapse" >
+        <ul class="navbar-nav align-items-lg-center" aria-label="Main Navigation">
+            
+          <a href="https://www.noip.com/login" onClick="ga('send', 'event', 'mobile-top-nav', 'click', 'sign-in');" class="nav-link"><i class="fa fa-sign-out"></i> Sign In</a>
+
+          <a href="https://www.noip.com/sign-up" onClick="ga('send', 'event', 'top-nav', 'click', 'mininav-sign-up');" class="nav-link"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sign Up</a>
+                
+        </ul>
+      </div>
+      <div class="navbar-collapse collapse gap-3 shadow-display-lg-none shadow-sm mobile-nav nav" id="mobile-nav">
+        <ul class="navbar-nav align-items-lg-center w-100" aria-label="Main Navigation">
+          <a class="nav-link link-offset-2 link-offset-3-hover  link-underline-opacity-0 link-underline-opacity-75-hover " href="https://www.noip.com/remote-access" onClick="gtag('event', 'click', {'event_category': 'mobile-nav', 'event_label': 'dynamic-dns'});">Dynamic DNS</a>
+          <a class="nav-link link-offset-2 link-offset-3-hover  link-underline-opacity-0 link-underline-opacity-75-hover " href="https://www.noip.com/managed-dns" onClick="gtag('event', 'click', {'event_category': 'mobile-nav', 'event_label': 'managed-dns'});">Managed DNS</a>
+          <a class="nav-link link-offset-2 link-offset-3-hover  link-underline-opacity-0 link-underline-opacity-75-hover  " href="https://www.noip.com/domains" onClick="gtag('event', 'click', {'event_category': 'mobile-nav', 'event_label': 'domains'});">Domains</a>
+          <div class="dropdown">
+            <a id="servicesDrop" class="nav-link dropdown-toggle link-offset-2 link-offset-3-hover  link-underline-opacity-0 link-underline-opacity-75-hover " role="button" data-bs-toggle="dropdown" aria-expanded="false">Services</a>
+            <ul class="dropdown-menu  " aria-labelledby="servicesDrop">
+              <li><a class="dropdown-item " href="https://www.noip.com/managed-mail" onClick="gtag('event', 'click', {'event_category': 'navigation', 'event_label': 'service-email'});">Email</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/server-monitoring" onClick="gtag('event', 'click', {'event_category': 'navigation', 'event_label': 'service-monitoring'});">Monitoring</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/ssl-certificates" onClick="gtag('event', 'click', {'event_category': 'navigation', 'event_label': 'service-ssl-certificates'});">SSL Certificates</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/priority-support" onClick="gtag('event', 'click', {'event_category': 'navigation', 'event_label': 'service-priority-support'});">Priority Support</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/team-login">Team Login</a></li>
+              <li role="separator" class="dropdown-divider"></li>
+              <li class="dropdown-header pl-10 pr-10">Partners</li>
+              <li><a class="dropdown-item " href="https://www.noip.com/vpn-ipvanish" onClick="ga('send', 'event', 'navigation', 'click', 'service-ip-vanish');">IP Vanish</a></li>
+            </ul>
+          </div>
+          <div class="dropdown">
+            <a id="solutionsDrop" class="nav-link dropdown-toggle link-offset-2 link-offset-3-hover  link-underline-opacity-0 link-underline-opacity-75-hover "  role="button" data-bs-toggle="dropdown" aria-expanded="false">Solutions</a>
+            <ul class="dropdown-menu" aria-labelledby="solutionsDrop">
+              <li><a class=" dropdown-item" href="https://www.noip.com/branded-remote-access" onClick="ga('send', 'event', 'navigation', 'click', 'branded-remote-access');">API & White Label Remote Access</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions/msp" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-managed-dns-system-admins');">Managed Service Providers</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions/it-leaders" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-managed-dns-system-admins');">Internal IT</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions/managed-dns-system-admins" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-managed-dns-system-admins');">System Admins</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions/enterprise-dns-solutions" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-enterprise-dns-solution');">Enterprise IT Solutions</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions/dynamic-dns-home-network" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-dynamic-dns-home-network');">Home Networks</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions/dynamic-dns-iot-smart-home" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-dynamic-dns-iot-smart-home');">IoT & Smart Homes</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/remote-access/minecraft" onClick="ga('send', 'event', 'navigation', 'click', 'remote-access-minecraft');">Online Gaming</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/remote-access/security-camera" onClick="ga('send', 'event', 'navigation', 'click', 'remote-access-security-camera');">Security Cameras</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/remote-access/computer" onClick="ga('send', 'event', 'navigation', 'click', 'remote-access-computer');">Remote Access a Computer</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions" onClick="ga('send', 'event', 'navigation', 'click', 'all-solutions');">View All Solutions</a></li>
+            </ul>
+          </div>
+    
+          <a class="nav-link link-offset-2 link-offset-3-hover  link-underline-opacity-0 link-underline-opacity-75-hover " href="https://www.noip.com/why-us" onClick="gtag('event', 'click', {'event_category': 'navigation', 'event_label': 'why-us'});">Why Us</a>
+          <a class="nav-link link-offset-2 link-offset-3-hover  link-underline-opacity-0 link-underline-opacity-75-hover " href="/support" onClick="gtag('event', 'click', {'event_category': 'navigation', 'event_label': 'why-us'});">Support</a>
+    
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+            
+
+    
+      <!-- End Account Info section -->
+
+
+
+
+<!-- Desktop Nav -->
+<section id="top-nav-wrap" class="top-nav navbar navbar-expand-lg navbar-light bg-noip-light pt-0 pb-0 z-3">
+    <div class="container-fluid container-xl d-flex flex-row-reverse p-md-0 p-md-0 p-xs-0 ps-lg-4 pe-lg-4">
+
+        <nav aria-label="Top Global Links" class="collapse navbar-collapse">
+                      <div class="d-md-none d-md-none d-xs-none d-lg-flex d-xl-flex d-xxl-flex fs-8 flex-grow-1 gap-1">
+              <span>Managed</span> 
+              <span class="text-info fw-bold">DNS</span> 
+              <span>Services</span>
+            </div>
+            <ul class="top-navbar-nav navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-row-reverse align-items-center d-flex w-100">
+
+              <li class="nav-item">
+                <a href="https://www.noip.com/login" class="nav-link" rel="nofollow" role="button" data-toggle="modal" onClick="ga('send', 'event', 'top-nav', 'click', 'sign-in');">
+                  Sign In                </a>
+              </li>
+              <li class="top-nav-icon pb-cart nav-item border-end">
+              <div class="nav-link dropdown pb-dropdown mini-nav-hide p-0">
+                <a class="cart nav-link  nav-link" href="#" data-toggle="dropdown" rel="nofollow" role="button" onClick="ga('send', 'event', 'navigation', 'button', 'view-cart');"><span class="badge-cart-items">...</span></a>
+              </div>
+              </li>
+
+              <li class="nav-item border-start border-end">
+                <a class="nav-link" href="#localizationModal" rel="nofollow" role="button" data-toggle="modal" data-bs-target="#localizationModal" data-bs-toggle="modal">
+                  <i class="fa fa-globe me-2"></i>English
+                </a>
+              </li>
+              <li class="nav-item"><a href="https://www.noip.com/vpn-ipvanish" onClick="ga('send', 'event', 'top-nav', 'click', 'ip-vanish');" class="link-success nav-link"><i class="fa fa-lock me-2"></i>Anonymous Browsing VPN</a></li>
+              <li class="nav-item"><a class=" nav-link" href="https://www.noip.com/contact" onClick="ga('send', 'event', 'top-nav', 'click', 'contact');">Contact</a></li>
+              <li class="nav-item"><a href="https://blog.noip.com/" onClick="ga('send', 'event', 'top-nav', 'click', 'blog');" class="nav-link">Blog</a></li>
+              <li class="nav-item"><a class="nav-link active" href="https://www.noip.com/download" onClick="ga('send', 'event', 'top-nav', 'click', 'download');">Download</a></li>
+              
+              <li class="nav-item"><a class="nav-link " href="https://www.noip.com/about" onClick="ga('send', 'event', 'top-nav', 'click', 'about');" >About</a></li>
+              <li class="nav-item"><a href="https://www.noip.com" onClick="ga('send', 'event', 'top-nav', 'click', 'home');" class="nav-link">Home</a></li>
+
+              
+          </ul>
+          
+                  </nav>
+
+      <!-- Language dropdown -->
+     
+
+      <!-- end Langauge dropdown --->
+        
+
+   
+    </div>
+</section>
+<!-- / Top Nav -->
+<div class="container pb-cart-container not-logged-in">
+  <div id="mini-cart-container" class="mini-cart mini-cart-empty">
+
+    <!--Everything inside here should be dynamically loaded with js-->
+  </div> <!--end container -->
+  <div id="cartCsrfToken" data-token="UiUZMZZokVlQnu134QkShKjGcKhVrnexyQ1Okrhg "></div>
+  <input type="hidden" name="_baseUrl" value="https://www.noip.com">
+</div>
+
+<!--Templates for cart with items -->
+
+<template id="mini-cart-total-header">
+  <div id="three-icon-loading" class="loader d-none">
+        <div class="loading-icons"><span></span><span></span><span></span></div>
+        <div class="w-100 fw-semibold">Loading</div>
+    </div>
+  <div class="mini-cart-header">
+
+    <div class="mini-cart-total">
+      You’ve added <span class="fw-semibold">(1 item):</span>  <span class="text-success">$24.95</span>
+    </div>
+  </div>
+</template>
+
+<template id="mini-cart-list-item">
+  <li class="list-group-item">
+    <div class="product-row d-flex flex-row justify-content-between">
+      <span class="product pull-left col-xs-8 pl-0">Plus Managed DNS</span>
+      <span class="price pull-right"><span class="text-success fw-semibold">$5.00</span><span class="term-type"></span>
+        <button data-item_id="" aria-label="Remove product from cart" class="delete btn btn-xs btn-flat btn-outline btn-danger pr-lg">
+          <i type="button" class="fa fa-remove" onClick="ga('send', 'event', 'mini-plan-builder', 'click', 'remove-product');"></i>
+        </button>
+      </span>
+    </div>
+      <span class="domain pull-left col-md-12 pl-0 pr-0">domianexample.com</span>
+  </li>
+</template>
+
+<template id="mini-cart-list-error">
+  <li id="error-item" class="clearfix list-group-item">
+    <div class="product-row">
+      <span class="pull-left alert alert-danger w-100 error-group">
+        <div class="d-flex flex-direction">
+          <div class="flex-row ">
+            <span id="error-text">An error has occured</span>
+            <span>Please contact <a href="/ticket" class="text-danger">Customer Support</a> for assistance.</span>
+          </div>
+        </div>
+        
+        <button id="dismiss-error-button" class="close btn btn-danger btn-sm">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </span>
+    </div>
+  </li>
+</template>
+
+<template id="mini-cart-list">
+  <ul id="unordered-mini-cart-list" class="mini-cart-items list-group"></ul>
+</template>
+
+<template id="mini-cart-checkout-button">
+  <a href="https://www.noip.com/plan-builder/configure" class="btn btn-primary btn-os w-100 fw-bold d-flex align-content-center align-items-center text-center justify-content-center">Continue to Checkout</a>
+</template>
+
+<!--End of templates for cart with items-->
+
+<!--Templates for cart WITHOUT items -->
+<template id="mini-cart-empty-content">
+  <div id="three-icon-loading" class="loader d-none">
+    <div class="loading-icons"><span></span><span></span><span></span></div>
+    <div class="w-100 fw-semibold">Loading</div>
+  </div>
+  <div class="d-flex flex-column justify-content-center gap-3 w-100">
+    <div class="mini-cart-empty-header">
+      <span class="header">Your cart is empty</span>
+    </div>
+    <span class="body text-center w-100">Check out all the services you can purchase on <a href="https://www.noip.com">No-IP</a>.</span>
+    <a href="https://www.noip.com" class="btn btn-primary">Start Shopping</a>
+  </div>
+</template>
+<!--End of templates for cart WITHOUT items-->
+
+<script src="//d2qr50rz2oof04.cloudfront.net/assets/build/js/mini-cart.js?id=0a6e662726d997a0e9a9"></script>
+
+<header id="header" class=" clearfix">
+  <div class="header-container">
+
+    <!-- Navigation -->
+<section id="navigation" class="navbar navbar-expand-lg navbar-light main-nav z-3 bg-white">
+  <div class="container-fluid container-xl">
+    <div class="waypoint  waypoint d-lg-flex middle-lg middle-md reverse between-lg between-md ps-0 pe-0 w-100"  data-animate-down="way-header-shrink" data-animate-up="way-header-hide">
+      <a id="logo" class="grey home first-sm flex-grow-1 d-md-none d-md-none d-none d-lg-block d-xl-block d-xxl-block" href="https://www.noip.com" title="No-IP - Managed DNS Service Provider">
+        <img src="//d2qr50rz2oof04.cloudfront.net/assets/img/logo/logo-grey.png" alt="No-IP Logo" srcset="//d2qr50rz2oof04.cloudfront.net/assets/img/logo/logo-grey_@2x.png 2x" />
+      </a>
+      <div class="navbar-collapse collapse flex-row-reverse gap-3 shadow-display-lg-none shadow-sm mobile-nav d-none d-lg-flex">
+              <a class="signup home btn btn-success" href="https://www.noip.com/sign-up" onClick="gtag('event', 'button', {'event_category': 'navigation', 'event_label': 'sign-up'});">Sign Up</a>
+              <ul class="navbar-nav align-items-lg-center" aria-label="Main Navigation">
+          <a class="nav-link link-offset-2 link-offset-3-hover  link-underline-opacity-0 link-underline-opacity-75-hover " href="https://www.noip.com/remote-access" onClick="gtag('event', 'click', {'event_category': 'mobile-nav', 'event_label': 'dynamic-dns'});">Dynamic DNS</a>
+          <a class="nav-link link-offset-2 link-offset-3-hover  link-underline-opacity-0 link-underline-opacity-75-hover " href="https://www.noip.com/managed-dns" onClick="gtag('event', 'click', {'event_category': 'mobile-nav', 'event_label': 'managed-dns'});">Managed DNS</a>
+          <a class="nav-link link-offset-2 link-offset-3-hover  link-underline-opacity-0 link-underline-opacity-75-hover  " href="https://www.noip.com/domains" onClick="gtag('event', 'click', {'event_category': 'mobile-nav', 'event_label': 'domains'});">Domains</a>
+          <div class="dropdown">
+            <a id="servicesDrop" class="nav-link dropdown-toggle link-offset-2 link-offset-3-hover  link-underline-opacity-0 link-underline-opacity-75-hover " role="button" data-bs-toggle="dropdown" aria-expanded="false">Services</a>
+            <ul class="dropdown-menu  " aria-labelledby="servicesDrop">
+              <li><a class="dropdown-item " href="https://www.noip.com/managed-mail" onClick="gtag('event', 'click', {'event_category': 'navigation', 'event_label': 'service-email'});">Email</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/server-monitoring" onClick="gtag('event', 'click', {'event_category': 'navigation', 'event_label': 'service-monitoring'});">Monitoring</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/ssl-certificates" onClick="gtag('event', 'click', {'event_category': 'navigation', 'event_label': 'service-ssl-certificates'});">SSL Certificates</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/priority-support" onClick="gtag('event', 'click', {'event_category': 'navigation', 'event_label': 'service-priority-support'});">Priority Support</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/team-login">Team Login</a></li>
+              <li role="separator" class="dropdown-divider"></li>
+              <li class="dropdown-header pl-10 pr-10">Partners</li>
+              <li><a class="dropdown-item " href="https://www.noip.com/vpn-ipvanish" onClick="ga('send', 'event', 'navigation', 'click', 'service-ip-vanish');">IP Vanish</a></li>
+            </ul>
+          </div>
+          <div class="dropdown">
+            <a id="solutionsDrop" class="nav-link dropdown-toggle link-offset-2 link-offset-3-hover  link-underline-opacity-0 link-underline-opacity-75-hover "  role="button" data-bs-toggle="dropdown" aria-expanded="false">Solutions</a>
+            <ul class="dropdown-menu" aria-labelledby="solutionsDrop">
+              <li><a class=" dropdown-item" href="https://www.noip.com/branded-remote-access" onClick="ga('send', 'event', 'navigation', 'click', 'branded-remote-access');">API & White Label Remote Access</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions/msp" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-managed-dns-system-admins');">Managed Service Providers</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions/it-leaders" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-managed-dns-system-admins');">Internal IT</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions/managed-dns-system-admins" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-managed-dns-system-admins');">System Admins</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions/dynamic-dns-home-network" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-dynamic-dns-home-network');">Home Networks</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions/dynamic-dns-iot-smart-home" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-dynamic-dns-iot-smart-home');">IoT & Smart Homes</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/remote-access/minecraft" onClick="ga('send', 'event', 'navigation', 'click', 'remote-access-minecraft');">Online Gaming</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/remote-access/security-camera" onClick="ga('send', 'event', 'navigation', 'click', 'remote-access-security-camera');">Security Cameras</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/remote-access/computer" onClick="ga('send', 'event', 'navigation', 'click', 'remote-access-computer');">Remote Access a Computer</a></li>
+              <li><a class="dropdown-item " href="https://www.noip.com/solutions" onClick="ga('send', 'event', 'navigation', 'click', 'all-solutions');">View All Solutions</a></li>
+            </ul>
+          </div>
+    
+          <a class="nav-link link-offset-2 link-offset-3-hover  link-underline-opacity-0 link-underline-opacity-75-hover " href="https://www.noip.com/why-us" onClick="gtag('event', 'click', {'event_category': 'navigation', 'event_label': 'why-us'});">Why Us</a>
+          <a class="nav-link link-offset-2 link-offset-3-hover  link-underline-opacity-0 link-underline-opacity-75-hover " href="/support" onClick="gtag('event', 'click', {'event_category': 'navigation', 'event_label': 'why-us'});">Support</a>
+    
+        </ul>
+      </div>
+      <!-- Logo -->
+    </div>
+    
+
+  </div>
+</section>
+<!-- / Navigation -->
+
+  </div>
+</header>
+
+
+<section id="content" class="waypoint" data-animate-down="way-header-shrink" data-animate-up="way-header-hide">
+
+
+<!-- Page Title ================================================== -->
+<section class="darkwrap-texure pt-7 pb-7">
+    <div class="container">
+        <h1 class="text-info d-flex flex-row justify-content-between"><span class="fs-4">Dynamic DNS Update Client (DUC) for Windows</span><i class="fa-brands fa-windows text-info fs-3"></i></h1>
+        <p class="text-white">Keep your current IP address in sync with your No-IP host or domain with our Dynamic Update Client (DUC).</p>
+    </div>
+</section>
+<!-- / Page Title -->
+
+<!-- Content Wrapper ================================================== -->
+<section id="content-wrap" class="container pt-8 pb-8">
+    <div class="row">
+        <div id="download-box" class="col-lg-3 col-md-6 offset-lg-1 col-xs-12 order-2">
+            <a id="open-dialog" class="btn btn-warning w-100 pt-md-4 pb-md-4 btn-lg" href="/download/windows/latest" onClick="ga('send', 'event', 'downloads-page', 'click', 'windows-download');">Download Now<i class="ms-2 fa-solid fa-arrow-down-to-line"></i></a>
+            <p class="text-center nomarg"><small>236kb v4.1.1</small></p>
+        </div>
+        <div class="service col-lg-7 col-md-6 col-xs-12 order-1">
+            <h2 class="fs-5 mb-4">Download DUC Now</h2>
+            <p class="nomarg">Our Dynamic DNS Update Client continually checks for IP address changes in the background and automatically updates the DNS at No-IP whenever it changes.</p>
+            
+        </div>
+    </div>
+</section>
+<!-- / Content Wrapper -->
+
+<!-- Features ================================================== -->
+<section class="bg-tertiary_50 top-border pt-7 pb-7">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-12"><h2 class="fs-5">Why Choose No-IP&#039;s Dynamic Update Client?</h2></div>
+        </div>
+        <div class="row mb-md-5">
+            <div class="col-md-4 d-flex flex-column text-start gap-3">
+                <span class="icon-row clearfix"><i class="fa-solid fa-link fs-4 text-noip-logo-dark-grey"></i></span>
+                <p class="nomarg"><strong>Secure Key Based Updates</strong><br>Our secure DUC does not resend your No-IP credentials each time it sends an IP address update, instead it sends a unique key for username and password for your specific Dynamic Update Client.</p>
+            </div>
+            <div class="col-md-4 d-flex flex-column text-start gap-3">
+                <span class="icon-row clearfix"><i class="fa-solid fa-grid-2 fs-4 text-noip-logo-dark-grey"></i></span>
+                <p class="nomarg"><strong>Client Tracking</strong><br>This feature allows you to see a list of each location where you have a DUC installed. You can also set each update Client ID to a custom name for example, home, work, client name, etc to help keep track of each.</p>
+            </div>
+            <div class="col-md-4 d-flex flex-column text-start gap-3">
+                <span class="icon-row clearfix"><i class="fa-solid fa-circle-plus fs-4 text-noip-logo-dark-grey"></i></span>
+                <p class="nomarg"><strong>Host Creation (Plus & Enhanced Users)</strong><br>If you are an <a href="https://www.noip.com/remote-access" class="text-info text-decoration-none">Enhanced Dynamic DNS</a> or <a href="https://www.noip.com/managed-dns" class="text-info text-decoration-none">Plus Managed DNS</a> customer, you are able to easily add hostnames directly from the Dynamic Update Client. </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 d-flex flex-column text-start gap-3">
+                <span class="icon-row clearfix"><i class="fa-solid fa-rotate-right fs-4 text-noip-logo-dark-grey"></i></span>
+                <p class="nomarg"><strong>Runs When Logged Out</strong><br>If your computer is running, your hostname will still be updated when your IP address changes.</p>
+            </div>
+            <div class="col-md-4 d-flex flex-column text-start gap-3">
+                <span class="icon-row clearfix"><i class="fa-solid fa-message fs-4 text-noip-logo-dark-grey"></i></span>
+                <p class="nomarg"><strong>Notifications</strong><br>Receive notifications when a service is about to expire, or if we send out an important network update.</p>
+            </div>
+            <div class="col-md-4 d-flex flex-column text-start gap-3">
+                <span class="icon-row clearfix"><i class="fa-brands fa-windows fs-4 text-noip-logo-dark-grey"></i></span>
+                <p class="nomarg"><strong>DUC v4.1.1 Runs On Windows 10 & Up</strong><br>Please <a href="https://www.noip.com/contact" class="text-info text-decoration-none"> contact us</a> if you need support for an earlier os version.</p>
+            </div>
+        </div>
+        
+        </div>
+    </div>
+</section>
+<!-- / Features -->
+
+<!-- Installation ================================================== -->
+<section class="bg-white border-1 border-top pt-7 pb-7">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="fs-5 mb-3">DUC Installation</h2>
+                <p>Download the Windows update client by clicking the link above and saving the file. Double-click the downloaded file and follow the on-screen instructions.</p>
+                <p>The installation will complete and the application will ask for your account information. After your username and password have been authenticated you will be shown a list of hostnames. Select the hostnames that you would like updated to the <a href="http://portchecktool.com/" target="_blank" class="text-info text-decoration-none"> IP address</a> of your computer.</p>
+            </div>
+            <div id="video-container" class="col-md-6">
+                <p class="nomarg clearfix"><iframe width="560" height="315" src="https://www.youtube.com/embed/gNWuYJs3suY?si=vT-ZNq-Mb36jv6fC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / Installation -->
+
+<!-- Callout Free Sign Up ================================================== -->
+<section id="priority-support-callout" class="darkwrap-texure">
+    <div id="freedns-callout" class="container">
+        <div class="flex-row d-flex justify-content-center">
+            <div class="col-md-8 text-center d-flex gap-3 flex-column">
+                <div class="w-100 mb-20 d-block"><i class="fa-solid fa-bolt fa-4x text-warning"></i></div>
+                <h2 class="text-white"><strong>Priority Support</strong></h2>
+                <p class="text-white">No-IP Priority Support is a priority response support channel that is staffed with our friendly and experienced Technical support team. Priority Support allows you to get the support you need as quickly as possible.</p>
+                <div class="d-flex justify-content-center">
+                    <a class="btn btn-os btn-warning btn-icon" href="https://www.noip.com/priority-support" onClick="ga('send', 'event', 'footer-callouts', 'click', 'priority-support');">Learn More <i class="fa-regular fa-arrow-up-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / Callout -->
+
+<!-- Other Downloads ================================================== -->
+<section id="services-overview" class="whitewrap top-border">
+    <div class="container">
+        <div id="" class="row">
+            <div class="service col-md-4 col-md-4  pt-7 pb-7 pe-md-5 d-flex flex-column align-content-between flex-wrap align-items-start">
+                <div class="d-flex flex-row gap-3 mb-3">
+                    <i class="fa-regular fa-map fs-4 text-noip-logo-dark-grey"></i>
+                    <h3 class="fs-5">Getting Started</h3>
+                </div>
+                <p>This guide will walk you through the installation and setup of the Dynamic Update Client for Windows.</p>
+                <a class="btn btn-outline-info" href="/support/knowledgebase/installing-the-windows-4-x-dynamic-update-client-duc/">Get Started</a>
+            </div>
+            <div class="service col-md-4 pt-7 pb-7 border-start border-end border-left ps-md-5 pe-md-5 border-width-mq-0 border-width-mq-md-1">
+                <div class="d-flex flex-row gap-3 mb-3">
+                    <i class="fa-solid fa-screwdriver-wrench fs-4 text-noip-logo-dark-grey"></i>
+                    <h3 class="fs-5">Write Your Own Client</h3>
+                </div>
+                <p>Interested in making your own updates? Check out our easy to use dynamic DNS update API.</p>
+                <div class="d-flex">
+                    <a class="btn btn-outline-info btn-icon" href="https://www.noip.com/integrate">Learn More <i class="fa-regular fa-arrow-up-right"></i></a>
+                </div>
+            </div>
+            <div class="service col-md-4 pt-7 pb-7 ps-md-5">
+                <div class="d-flex flex-row gap-3 mb-3">
+                    <i class="fa-solid fa-arrow-down-to-line fs-4 text-noip-logo-dark-grey"></i>
+                    <h3 class="fs-5">Other Downloads</h3>
+                </div>
+                <p>Need to download the Dynamic Update Client (DUC) for a different operating system?</p>
+                <div class="d-flex flex-row gap-3">
+                    <a class="btn btn-outline-secondary mr-10" href="https://www.noip.com/download?page=linux">Linux</a> <a class="btn btn-outline-secondary" href="https://www.noip.com/download?page=mac">Mac</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / Other Downloads -->
+
+<!-- Sign in Modal -->
+<section id="downloadModal" class="modal fade" tabindex="-1" role="dialog" aria-label="Download" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Get Connected with No-IP</h3>
+    </div>
+    <div id="signin" class="modal-body clearfix">
+
+        <p>Follow No-IP for industry related news, No-IP updates and awesome giveaways.</p>
+
+        <!-- facebook -->
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+        <div class="fb-like" data-href="http://www.facebook.com/noipdns" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false" onClick="ga('send', 'event', 'downloads-modal', 'click', 'facebook-like');"></div>
+
+        <br>
+
+        <!-- Twitter -->
+        <a href="http://twitter.com/NoIPcom" class="twitter-follow-button" data-dnt="true" data-show-screen-name="false" onClick="ga('send', 'event', 'downloads-modal', 'click', 'twitter-follow');">Follow No-IP</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+        <br><br>
+
+    </div>
+  </div>
+</section>
+<!-- / Sign in Modal -->
+
+</section>
+</main>
+<footer id="footer">
+  <div id="footerWrapper" class="footer-wrap container">
+    <!-- Sitemap -->
+    <nav id="sitemap" class="container" aria-label="Footer Menu">
+        <div class="row">
+          
+            <ul class="sitemap col-md-2 pr-0 list-group fs-6">
+                <strong class="header mb-4 fs-7">Services</strong>
+                <a href="https://www.noip.com/remote-access" onClick="ga('send', 'event', 'footer', 'click', 'dynamic-dns');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Dynamic DNS</a>
+                <a href="https://www.noip.com/managed-dns" onClick="ga('send', 'event', 'footer', 'click', 'managed-dns');" class="list-group-item fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Managed DNS</a>
+                <a href="https://www.noip.com/managed-mail" onClick="ga('send', 'event', 'footer', 'click', 'email');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Email</a>
+                <a href="https://www.noip.com/domains" onClick="ga('send', 'event', 'footer', 'click', 'domain-registration');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Domain Registration</a>
+               <a href="https://www.noip.com/server-monitoring" onClick="ga('send', 'event', 'footer', 'click', 'server-monitoring');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Server Monitoring</a>
+                <a href="https://www.noip.com/ssl-certificates" onClick="ga('send', 'event', 'footer', 'click', 'ssl-certificates');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">SSL Certificates</a>
+                <a href="https://www.noip.com/sign-up" onClick="ga('send', 'event', 'footer', 'click', 'free-sign-up');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Free DDNS Sign Up</a>
+                <a href="https://www.noip.com/pricing" onClick="ga('send', 'event', 'footer', 'click', 'free-sign-up');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Pricing</a>
+                <a href="https://developer.noip.com" target="_blank" onClick="ga('send', 'event', 'footer', 'click', 'dns-api');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">DNS API</a>
+            </ul>
+            <ul class="sitemap col-md-2 pr-0 list-group mt-5 mt-md-0">
+                <strong class="header mb-4 fs-7">Support</strong>
+                <a href="/support" rel="nofollow" onClick="ga('send', 'event', 'footer', 'click', 'knowledgebase');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Knowledge Base</a>
+                <a href="/support/knowledgebase/getting-started-with-no-ip-com/" onClick="ga('send', 'event', 'footer', 'click', 'getting-started');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Getting Started</a>
+                <a href="/support/faq/frequently-asked-questions/" onClick="ga('send', 'event', 'footer', 'click', 'faq'); " class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">FAQ</a>
+                <a href="//www.portchecktool.com" onClick="ga('send', 'event', 'footer', 'click', 'port-check');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Port Check</a>
+                <a href="https://www.noip.com/download" onClick="ga('send', 'event', 'footer', 'click', 'downloads');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Downloads</a>
+            </ul>
+            <ul class="sitemap col-md-2 pr-0 list-group  mt-5 mt-md-0">
+                <strong class="header mb-4 fs-7">Company</strong>
+                <a href="https://www.noip.com/about" onClick="ga('send', 'event', 'footer', 'click', 'about');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">About No-IP</a>
+                <a href="https://www.noip.com/what-is-dns" onClick="ga('send', 'event', 'footer', 'click', 'what-is-dns');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">What Is DNS?</a>
+                <a href="https://www.noip.com/integrate" onClick="ga('send', 'event', 'footer', 'click', 'integrate');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Integrate</a>
+                <a href="https://www.noip.com/careers" onClick="ga('send', 'event', 'footer', 'click', 'careers');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Careers</a>
+                <a href="https://www.noip.com/contact" onClick="ga('send', 'event', 'footer', 'click', 'contact-us');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Contact Us</a>
+                <a href="https://www.noip.com/referral-program" onClick="ga('send', 'event', 'footer', 'click', 'referral-program');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Referral Program</a>
+                <strong class="header mt-5 mb-4 fs-7">Stay Connected</strong>
+                <a href="https://blog.noip.com/" onClick="ga('send', 'event', 'footer', 'click', 'blog');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Blog Posts &amp; News</a>
+                <a href="https://www.noip.com/press" onClick="ga('send', 'event', 'footer', 'click', 'press');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Press &amp; Media</a>
+                <!-- / Social Links -->
+                <div class="social-icons w-100 d-flex flex-row gap-1 mt-3">
+                    <a class="d-inline pull-left link-noip-dark-blue" href="http://www.facebook.com/noipdns" target="_blank" onClick="ga('send', 'event', 'footer', 'click', 'facebook');" aria-label="Facebook">
+                      <span class="fa-stack" style="vertical-align: top;">
+                        <i class="fa-solid fa-circle fa-stack-2x"></i>
+                        <i class="fa-brands fa-facebook fa-stack-1x text-white"></i>
+                      </span>
+                      <span class="visually-hidden" title="Facebook">Facebook</span>
+                    </a>
+                    <a class="d-inline pull-left link-noip-dark-blue" href="http://www.twitter.com/noipcom" target="_blank" onClick="ga('send', 'event', 'footer', 'click', 'twitter');" aria-label="Twitter">
+                      <span class="fa-stack" style="vertical-align: top;">
+                        <i class="fa-solid fa-circle fa-stack-2x"></i>
+                        <i class="fa-brands fa-x-twitter fa-stack-1x text-white"></i>
+                      </span>
+                      <span class="visually-hidden" title="Twitter">Twitter</span>
+                    </a>
+                    <a class="d-inline pull-left link-noip-dark-blue" href="http://www.youtube.com/noipDDNS" target="_blank" onClick="ga('send', 'event', 'footer', 'click', 'youtube');" aria-label="YouTube">
+                      <span class="fa-stack" style="vertical-align: top;">
+                        <i class="fa-solid fa-circle fa-stack-2x"></i>
+                        <i class="fa-brands fa-youtube fa-stack-1x text-white"></i>
+                      </span>
+                      <span class="visually-hidden" title="Youtube">Youtube</span>
+                    </a>
+                </div>
+            </ul>
+            <ul class="sitemap col-md-3 pr-0 list-group mt-5 mt-md-0">
+              <strong><a id="solutionsDrop" href="https://www.noip.com/solutions" class="mb-4 fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover text-bold" onClick="ga('send', 'event', 'footer', 'click', 'solutions');">Solutions</a></strong>
+              <a href="https://www.noip.com/business" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1" onClick="ga('send', 'event', 'footer', 'click', 'solutions-business');">All Solutions for Business</a>
+              <a href="https://www.noip.com/personal" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1" onClick="ga('send', 'event', 'footer', 'click', 'solutions-personal');">All Solutions for Personal Use</a>
+              <a class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1" href="https://www.noip.com/solutions/enterprise-dns-solutions" onclick="ga('send', 'event', 'navigation', 'click', 'solutions-enterprise-dns-solution');">Enterprise IT Solutions</a>
+                <a class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1" href="https://www.noip.com/solutions/msp" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-managed-dns-system-admins');">Managed Service Providers</a>
+                <a class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1 " href="https://www.noip.com/solutions/it-leaders" onClick="ga('send', 'event', 'navigation', 'click', 'solutions-managed-dns-system-admins');">Internal IT</a>
+              <a href="https://www.noip.com/solutions/managed-dns-system-admins" onClick="ga('send', 'event', 'footer', 'click', 'solutions-managed-dns-system-admins');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">System Admins</a>
+              <a href="https://www.noip.com/solutions/dynamic-dns-home-network" onClick="ga('send', 'event', 'footer', 'click', 'solutions-dynamic-dns-home-network');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Home Networks</a>
+              <a href="https://www.noip.com/solutions/dynamic-dns-iot-smart-home" onClick="ga('send', 'event', 'footer', 'click', 'solutions-dynamic-dns-iot-smart-home');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">IoT & Smart Homes</a></li>
+              <a href="https://www.noip.com/remote-access/minecraft" onClick="ga('send', 'event', 'footer', 'click', 'remote-access-minecraft');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Online Gaming</a>
+              <a href="https://www.noip.com/remote-access/security-camera" onClick="ga('send', 'event', 'footer', 'click', 'remote-access-security-camera');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Security Cameras</a>
+              <a href="https://www.noip.com/remote-access/computer" onClick="ga('send', 'event', 'footer', 'click', 'remote-access-computer');" class="fs-7 list-group-item link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1">Remote Access a Computer</a>
+            </ul>
+            <ul id="footer-domsearch" class="list-group sitemap col-md-3 d-none d-lg-flex d-md-flex d-xl-flex d-xxl-flex pl-0  mt-5 mt-md-0">
+                <strong class="mb-3 fs-7">Register Your Domain</strong>
+                <li class="fs-7 list-group-item mb-3 text-decoration-none">Find Perfect Domain</li>
+                <li class="newsletter-form list-group-item text-decoration-none">
+                    <form id="domreg-footer" method="post" action="https://www.noip.com/domains">
+                        <input type="hidden" name="_token" value="UiUZMZZokVlQnu134QkShKjGcKhVrnexyQ1Okrhg">
+                        <div class="d-flex flex-column gap-2 align-items-start">
+                          <label class="fw-semibold visually-hidden" for="domain">Find a Domain Today</label>
+                          <input placeholder="Find a Domain Today" class="form-control" id="domain_registration" type="text" name="domain" aria-label="Find a Domain Today">
+                          <button class="btn btn-primary small pull-left" onClick="ga('send', 'event', 'footer-domain-search', 'button', 'search');">Search</button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- / Sitemap -->
+    <!-- Copyright -->
+    <section id="copyright" class="container mt-7">
+        <div class="row">
+            <div class="col-md-9 fs-7">
+                <div class="pt-3 pb-3 sitemap fs-7 link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1" id="noip_footer_status" style="visibility: hidden"></div>
+
+                <div class="d-flex-md flex-row mb-2 gap-1">
+                  &copy;1999-2025 &bull; Vitalwerks Internet Solutions, LLC dba No-IP &bull; All Rights Reserved.                  <strong><a href="https://www.noip.com/legal/privacy" class="text-noip-dark-blue no-underline link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1 footer-link">Privacy Policy</a></strong> &bull; <strong><a href="https://www.noip.com/legal/tos" class="text-noip-dark-blue no-underline link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1 footer-link">Terms of Service</a></strong> &bull; <strong><a class="text-noip-dark-blue no-underline link-offset-2 link-offset-3-hover link-underline-opacity-0 link-underline-opacity-75-hover mb-1 footer-link" href="https://www.noip.com/abuse">Report Abuse</a></strong>
+                  
+                </div>
+                
+                <span class="lightgrey fs-7">
+<small>
+ss@d014069fb 2025-09-25T21:20:06Z
+web02
+</small>
+</span>
+            </div>
+            <div class="col-xs-12 col-md-3 col-md-3 pull-right">
+                <a href="https://www.noip.com"  onClick="ga('send', 'event', 'footer', 'click', 'logo');">
+                  <img src="//d2qr50rz2oof04.cloudfront.net/assets/img/logo/logo-grey.png" width="120px" height="45px" alt="No-IP Logo" srcset="//d2qr50rz2oof04.cloudfront.net/assets/img/logo/logo-grey_@2x.png 2x" />
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- / Copyright -->
+  </div>
+</footer>
+
+<div id="cartModal" class="modal fade container-fluid" tabindex="-1" role="dialog" aria-label="Quick Cart View" aria-hidden="true">
+  <div class="modal-body">
+
+
+    <button type="button" class="close close-cart" data-dismiss="modal" aria-hidden="true" onClick="ga('send', 'event', 'cartModal', 'click', 'x-close');">×</button>
+    <div id="cart-modal" class="row clearfix"></div>
+  </div>
+  <div id="cartCsrfToken" data-token="UiUZMZZokVlQnu134QkShKjGcKhVrnexyQ1Okrhg "></div>
+</div>
+
+<section id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog"> 
+    <div class="modal-body">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Log In To Your Account</h3>
+      </div>
+      <div class="pt-20 pb-20 pr-20 pl-20">
+        <form class="row" id="loginForm" action="https://www.noip.com/login" method="post">
+            <input class="col-md-12" type="text" name="username" placeholder="Username or Email" title="Username" aria-label="Username" autofocus="autofocus">
+            <input class="col-md-12" type="password" name="password" title="Password" aria-label="Password" placeholder="Password" autocomplete="off">
+            <input type="hidden" name="submit_login_page" value="1">
+            <input type="hidden" name="Login" value="1">
+            <input type="hidden" id="hash-input" name="intended_hash" value="">
+            <input id="loginForm-captcha-token" name="g-recaptcha-response" type="hidden"/>
+<button type="submit" id="loginForm-captcha-button" onclick="ga('send', 'event', 'login-page', 'submit', 'log-in');" class="button pull-right">
+    Sign In
+</button>
+
+
+<script type="text/javascript" >
+    document.getElementById('loginForm-captcha-button').onclick = function(event) {
+        event.preventDefault();
+        if (window.grecaptcha) { // check if captcha disabled or user is blocking google
+            grecaptcha.ready( function() {
+                grecaptcha.execute(
+                    "6LceAcEZAAAAAK9LjsJrTYcI-7RSvlTaO2B8axUG",
+                    { action: 'login' },
+                ).then( function(token) {
+                    document.getElementById('loginForm-captcha-token').value = token;
+                    document.getElementById('loginForm').submit();
+                })
+            });
+        } else {
+            document.getElementById('loginForm').submit();
+        }
+    }
+</script>
+            <input type="hidden" name="_token" value="UiUZMZZokVlQnu134QkShKjGcKhVrnexyQ1Okrhg">
+            <a class="login-link" href="https://www.noip.com/forgot-password" onClick="ga('send', 'event', 'sign-in-modal', 'click', 'forgot-password');">Forgot Password</a>
+            <a class="login-link" href="https://www.noip.com/sign-up" onClick="ga('send', 'event', 'sign-in-modal', 'click', 'create-account');">Create An Account</a>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<script type="text/javascript">
+  document.addEventListener('submit', function(e) {
+    if (window.location.hash) {
+      document.getElementById('hash-input').value = window.location.hash;
+    }
+  })
+</script>
+<!-- Sign In Modal -->
+<section id="localizationModal" class="localization-modal modal fade center" tabindex="-1" role="dialog" aria-hidden="true" >
+	<div class="modal-dialog">
+		<div class="modal-content" tabindex="-1">
+			<div class="modal-header">
+				<h5 class="modal-title">Please select your <span style="text-transform: lowercase;"> Language</span></h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+			<div class="modal-body">
+				
+				<p><small>To view website content in your <span style="text-transform: lowercase;"> Language</span>, please select an option below.</small></p>
+					<div class="d-flex flex-row gap-3 justify-content-center  flex-wrap">
+												
+								<a class="btn btn-primary tip" data-toggle="tooltip" data-placement="top" title="" href="https://www.noip.com/setlocale/en" lang="en" onClick="ga('send', 'event', 'localization-modal', 'click', 'English');">English</a>
+							
+												
+								<a class="btn btn-primary tip" data-toggle="tooltip" data-placement="top" title="Estamos trabalhando para traduzir nosso site para português e ficar ainda mais fácil para vocês aproveitarem nossos excelentes serviços. Vocês podem perceber que algumas páginas ainda não estão traduzidas, mas a expectativa é que o projeto termine em breve! Enquanto isso, nós agradecemos a vocês pelo seu apoio constante." href="https://www.noip.com/setlocale/pt-BR" lang="pt-BR" onClick="ga('send', 'event', 'localization-modal', 'click', 'Português');">Português</a>
+							
+												
+								<a class="btn btn-primary tip" data-toggle="tooltip" data-placement="top" title="" href="https://www.noip.com/setlocale/it-IT" lang="it-IT" onClick="ga('send', 'event', 'localization-modal', 'click', 'Italiano');">Italiano</a>
+							
+												
+								<a class="btn btn-primary tip" data-toggle="tooltip" data-placement="top" title="" href="https://www.noip.com/setlocale/de-DE" lang="de-DE" onClick="ga('send', 'event', 'localization-modal', 'click', 'Deutsch');">Deutsch</a>
+							
+												
+								<a class="btn btn-primary tip" data-toggle="tooltip" data-placement="top" title="" href="https://www.noip.com/setlocale/es-MX" lang="es-MX" onClick="ga('send', 'event', 'localization-modal', 'click', 'Espanol');">Espanol</a>
+							
+											</div>
+
+					<!-- GOOGLE TRANSLATE -->
+					<div class="translatepos"><p class="clearfix nomarg">
+					<span id="google_translate_element" class="common input-sm"></span>
+					</p></div>
+					<style>
+					.translated-ltr body {
+						top: 0 !important;
+					}
+					.goog-te-banner-frame.skiptranslate { display: none; height: 0;
+			}</style>
+					<!-- / GOOGLE TRANSLATE -->
+			</div>
+		</div>
+	</div>
+</section>
+<script>
+	function setLocale (locale) {
+		$.ajax({
+			type: 'post',
+			url: '/setlocale/' + locale
+		});
+	}
+</script>
+<!-- / Sign In Modal -->
+<!-- Scripts ================================================== -->
+<script>window.prefix = "";window.locale = 'en';window.cart_messages = "cart";window.messages = {"email_already_in_use":"Email address already in use","email_confirm_required":"Email confirmation is required","email_must_match":"Email addresses must match","email_required":"Email address is required","hostnames_only_letters_and_numbers":"Hostnames may only contain letters or numbers.","hostnames_max_length":"Hostnames may only be 19 characters for Free Accounts","hostname_is_required":"Hostname is required","invalid_email_address":"Invalid email address","password_6_characters":"Password must be at least 6 characters","password_is_required":"Password is required","password_no_spaces":"Password cannot contain spaces","special_chars_warning":"Note: Dynamic DNS enabled devices, such as routers, cameras, or DVR's, often do not allow special characters and limit password length for Dynamic DNS passwords. Please consider a different password if you intend to use Dynamic DNS with an integrated device, as these passwords must match. For more information, <a href=\"\/support\/knowledgebase\/no-ip-account-password-with-ddns-devices\/\" target=\"_blank\">click here<\/a>","the_free_hostname":"the free hostname","username_is_not_available":"Username is not available","username_required":"Username is required","username_restrictions":"Username must be 6-15 characters long and only contain a-z, 0-9, -, _","view_more":"view more","name":{"dnslabel":"Your hostname cannot contain symbols or is over the max character limit","max":"Your hostname must be less than :max characters","maxchar":"Invalid character"}};</script><!-- Note: Preload keyword to initiate early, high-priority, and non-render-blocking fetch of a SCRIPT resource -->
+
+<link rel="preload" href="//d2qr50rz2oof04.cloudfront.net/assets/build/js/shortstar.js?id=039e7ee8a65a6af20fad" as="script">
+<script src="//d2qr50rz2oof04.cloudfront.net/assets/build/js/shortstar.js?id=039e7ee8a65a6af20fad"></script>
+<script type="text/javascript">
+if (document.getElementById("footerWrapper")) {
+  var footerHeight = document.getElementById("footerWrapper").offsetHeight;
+  document.getElementById("footer").style.height = (footerHeight + 100) + "px"; 
+}; 
+</script>
+<script src="//www.googleadservices.com/pagead/conversion.js" async></script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+
+<!-- Google Code for All Visitors to Site Remarketing List -->
+<script type="text/javascript" async>
+/* <![CDATA[ */
+var google_conversion_id = 1072685640;
+var google_conversion_language = "en";
+var google_conversion_format = "3";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "cL1PCIftvAMQyMS__wM";
+var google_conversion_value = 0;
+/* ]]> */
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/1072685640/?label=cL1PCIftvAMQyMS__wM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GG8YBN7FLC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GG8YBN7FLC');
+</script>
+
+<!-- Begin Bing tracking code -->
+<script type="text/javascript" async>
+(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"56003172"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");
+</script>
+<!-- End Bing tracking Code -->
+
+<!-- Begin Inspectlet Asynchronous Code -->
+<script type="text/javascript">
+(function() {
+window.__insp = window.__insp || [];
+__insp.push(['wid', 1629416919]);
+var ldinsp = function(){
+if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js?wid=1629416919&r=' + Math.floor(new Date().getTime()/3600000); var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
+setTimeout(ldinsp, 0);
+})();
+</script>
+<!-- End Inspectlet Asynchronous Code -->
+<script type="text/javascript">
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+</script>
+
+</body>
+</html>

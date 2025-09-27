@@ -28,10 +28,10 @@ app.config['JSON_AS_ASCII'] = False
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
 
-# Static dosyalar için özel route - Tüm tunnel servisleri için
+# Static dosyalar için özel route - Render.com ve tüm servisler için
 @app.route('/static/<path:filename>')
 def static_files(filename):
-    """Tüm tunnel servisleri için özel static dosya servisi"""
+    """Render.com ve tüm servisler için özel static dosya servisi"""
     from flask import send_from_directory, make_response, request
     import os
     import mimetypes
@@ -47,19 +47,15 @@ def static_files(filename):
     
     response = make_response(content)
     
-    # Tüm tunnel servisleri için headers
+    # Render.com ve tüm servisler için headers
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
     response.headers['Cross-Origin-Embedder-Policy'] = 'unsafe-none'
     response.headers['Cross-Origin-Opener-Policy'] = 'unsafe-none'
     response.headers['Cross-Origin-Resource-Policy'] = 'cross-origin'
-    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-    response.headers['Pragma'] = 'no-cache'
-    response.headers['Expires'] = '0'
+    response.headers['Cache-Control'] = 'public, max-age=3600'
     response.headers['Vary'] = 'Accept-Encoding'
-    response.headers['Last-Modified'] = 'Thu, 01 Jan 1970 00:00:00 GMT'
-    response.headers['ETag'] = ''
     
     # MIME-Type otomatik tespit
     mime_type, _ = mimetypes.guess_type(file_path)
@@ -4144,3 +4140,12 @@ if __name__ == '__main__':
         debug = False
     
     app.run(debug=debug, host='0.0.0.0', port=port)
+
+# Render.com için WSGI entry point
+if __name__ != '__main__':
+    # Veritabanını başlat (Render.com'da)
+    try:
+        init_db()
+        app.logger.info("Veritabanı başarıyla başlatıldı (Render)")
+    except Exception as e:
+        app.logger.error(f"Veritabanı başlatma hatası (Render): {e}")
