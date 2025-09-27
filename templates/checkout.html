@@ -100,7 +100,7 @@
                 <div class="card-body">
                     {% for item in cart_items %}
                     <div class="d-flex align-items-center mb-3">
-                        <img src="static/uploads/{{ item.image if item.image else 'images/no-image.png' }}" 
+                        <img src="{{ url_for('static', filename='uploads/' + item.image) if item.image else url_for('static', filename='images/no-image.png') }}" 
                              alt="{{ item.name }}" class="img-thumbnail me-3" style="width: 60px; height: 60px; object-fit: cover;">
                         <div class="flex-grow-1">
                             <h6 class="mb-1">{{ item.name }}</h6>

@@ -114,7 +114,7 @@
                                     <div class="mb-3">
                                         <label class="form-label">Mevcut Ana Resim</label>
                                         <div class="current-image">
-                                            <img src="static/uploads/{{ product.image }}" 
+                                            <img src="{{ url_for('static', filename='uploads/' + product.image) }}" 
                                                  alt="{{ product.name }}" class="img-fluid rounded" style="max-height: 200px;">
                                         </div>
                                     </div>
@@ -128,7 +128,7 @@
                                             {% for img in product_images %}
                                                 <div class="col-6 mb-2">
                                                     <div class="position-relative">
-                                                        <img src="static/uploads/{{ img.image_filename }}" 
+                                                        <img src="{{ url_for('static', filename='uploads/' + img.image_filename) }}" 
                                                              class="img-fluid rounded" 
                                                              style="max-height: 100px; max-width: 100px; object-fit: cover;"
                                                              alt="Ürün Resmi">

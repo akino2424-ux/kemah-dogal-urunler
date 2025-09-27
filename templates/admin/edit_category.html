@@ -69,7 +69,7 @@
                                 <div class="mb-3">
                                     <label class="form-label">Mevcut Resim</label>
                                     <div>
-                                        <img src="static/uploads/{{ category.image }}" 
+                                        <img src="{{ url_for('static', filename='uploads/' + category.image) }}" 
                                              class="img-fluid rounded" 
                                              style="max-height: 150px; max-width: 150px;"
                                              alt="Kategori Resmi">

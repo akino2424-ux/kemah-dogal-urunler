@@ -57,7 +57,7 @@
                         <div class="card blog-card h-100 shadow-sm border-0">
                             <div class="blog-card-image position-relative overflow-hidden">
                                 {% if post.primary_image %}
-                                    <img src="static/uploads/blog/{{ post.primary_image }}" 
+                                    <img src="{{ url_for('static', filename='uploads/blog/' + post.primary_image) }}" 
                                          class="img-fluid w-100 h-100" 
                                          style="object-fit: cover; transition: transform 0.3s ease;"
                                          alt="{{ post.title }}">

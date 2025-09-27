@@ -87,7 +87,7 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="static/uploads/{{ item.image if item.image else 'images/no-image.png' }}" 
+                                                    <img src="{{ url_for('static', filename='uploads/' + item.image) if item.image else url_for('static', filename='images/no-image.png') }}" 
                                                          alt="{{ item.name }}" class="img-thumbnail me-2" style="width: 40px; height: 40px; object-fit: cover;">
                                                     {{ item.name }}
                                                 </div>

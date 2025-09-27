@@ -34,7 +34,7 @@
                     <div class="card blog-card h-100 shadow-sm">
                         <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
                             {% if blog.primary_image %}
-                                <img src="static/uploads/blog/{{ blog.primary_image }}" 
+                                <img src="{{ url_for('static', filename='uploads/blog/' + blog.primary_image) }}" 
                                      alt="{{ blog.title }}" class="img-fluid" style="max-height: 180px; object-fit: cover;">
                             {% else %}
                                 <i class="fas fa-newspaper text-muted" style="font-size: 3rem;"></i>

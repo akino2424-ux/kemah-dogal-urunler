@@ -37,7 +37,7 @@
                                         <div class="col-md-2">
                                             <div class="cart-item-image bg-light d-flex align-items-center justify-content-center" style="height: 80px; border-radius: 5px;">
                                                 {% if item.image %}
-                                                    <img src="static/uploads/{{ item.image }}" 
+                                                    <img src="{{ url_for('static', filename='uploads/' + item.image) }}" 
                                                          alt="{{ item.name }}" class="img-fluid" style="max-height: 70px;">
                                                 {% else %}
                                                     <i class="fas fa-image text-muted"></i>
