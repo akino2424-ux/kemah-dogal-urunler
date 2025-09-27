@@ -1,0 +1,303 @@
+{% extends "base.html" %}
+
+{% block title %}Blok Yönetimi - Kemah{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="fas fa-ban me-2"></i>Blok Yönetimi</h2>
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Dashboard'a Dön
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- İstatistikler -->
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title">{{ total_visitors }}</h4>
+                            <p class="card-text">Toplam Ziyaretçi</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title">{{ active_visitors }}</h4>
+                            <p class="card-text">Aktif Ziyaretçi</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-user-check fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div class="card bg-danger text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title">{{ blocked_visitors }}</h4>
+                            <p class="card-text">Engellenen IP</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-ban fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Engellenen IP'ler -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Engellenen IP Adresleri</h5>
+                </div>
+                <div class="card-body">
+                    {% if blocked_ips %}
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="blockedIPsTable">
+                                <thead>
+                                    <tr>
+                                        <th>IP Adresi</th>
+                                        <th>Engelleme Sebebi</th>
+                                        <th>Engelleme Tarihi</th>
+                                        <th>Ziyaret Sayısı</th>
+                                        <th>Son Ziyaret</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for ip in blocked_ips %}
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <i class="fas fa-globe text-muted me-2"></i>
+                                                    <code>{{ ip.ip_address }}</code>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-danger">
+                                                    <i class="fas fa-exclamation-triangle me-1"></i>
+                                                    {{ ip.blocked_reason or 'Belirtilmemiş' }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="text-muted">
+                                                    {{ ip.blocked_at[:16] if ip.blocked_at else 'Bilinmiyor' }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-info">{{ ip.visit_count }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="text-muted">
+                                                    {{ ip.last_visit[:16] if ip.last_visit else 'Hiç' }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-sm btn-outline-warning" 
+                                                            onclick="unblockIP('{{ ip.ip_address }}')"
+                                                            title="Engeli Kaldır">
+                                                        <i class="fas fa-unlock"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-info" 
+                                                            onclick="viewIPDetails('{{ ip.ip_address }}')"
+                                                            title="Detayları Görüntüle">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-shield-alt fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">Engellenen IP bulunmuyor</h5>
+                            <p class="text-muted">Tüm ziyaretçiler aktif durumda</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- IP Engelleme Formu -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Yeni IP Engelle</h5>
+                </div>
+                <div class="card-body">
+                    <form id="blockIPForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="ip_address" class="form-label">IP Adresi</label>
+                                <input type="text" class="form-control" id="ip_address" name="ip_address" 
+                                       placeholder="192.168.1.1" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="block_reason" class="form-label">Engelleme Sebebi</label>
+                                <input type="text" class="form-control" id="block_reason" name="block_reason" 
+                                       placeholder="Spam/İstenmeyen davranış" required>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-ban me-2"></i>IP'yi Engelle
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Başarı Mesajı -->
+<div id="successAlert" class="alert alert-success alert-dismissible fade" role="alert" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+    <i class="fas fa-check-circle me-2"></i>
+    <span id="successMessage">İşlem başarıyla tamamlandı!</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+
+<!-- Hata Mesajı -->
+<div id="errorAlert" class="alert alert-danger alert-dismissible fade" role="alert" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+    <i class="fas fa-exclamation-circle me-2"></i>
+    <span id="errorMessage">Bir hata oluştu!</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('blockIPForm');
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        blockNewIP();
+    });
+});
+
+function blockNewIP() {
+    const form = document.getElementById('blockIPForm');
+    const formData = new FormData(form);
+    const data = {};
+    
+    // Form verilerini topla
+    for (let [key, value] of formData.entries()) {
+        data[key] = value;
+    }
+    
+    // Loading göster
+    // Loading state kaldırıldı
+    
+    // API'ye gönder
+    fetch('/api/block-ip', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showSuccess(data.message);
+            form.reset();
+            setTimeout(() => location.reload(), 1500);
+        } else {
+            showError(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showError('Bir hata oluştu!');
+    });
+}
+
+function unblockIP(ipAddress) {
+    if (!confirm(`IP ${ipAddress} engelini kaldırmak istediğinizden emin misiniz?`)) {
+        return;
+    }
+    
+    fetch('/api/unblock-ip', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            ip_address: ipAddress
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showSuccess(data.message);
+            setTimeout(() => location.reload(), 1500);
+        } else {
+            showError(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showError('Bir hata oluştu!');
+    });
+}
+
+function viewIPDetails(ipAddress) {
+    // IP detaylarını göster (basit alert)
+    alert(`IP Adresi: ${ipAddress}\n\nDetaylı bilgiler için müşteri yönetimi sayfasını kontrol edin.`);
+}
+
+function showSuccess(message) {
+    const alert = document.getElementById('successAlert');
+    const messageEl = document.getElementById('successMessage');
+    messageEl.textContent = message;
+    alert.classList.add('show');
+    
+    setTimeout(() => {
+        alert.classList.remove('show');
+    }, 3000);
+}
+
+function showError(message) {
+    const alert = document.getElementById('errorAlert');
+    const messageEl = document.getElementById('errorMessage');
+    messageEl.textContent = message;
+    alert.classList.add('show');
+    
+    setTimeout(() => {
+        alert.classList.remove('show');
+    }, 5000);
+}
+</script>
+{% endblock %}
+

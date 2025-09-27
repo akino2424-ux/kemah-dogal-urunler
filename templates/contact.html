@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+
+{% block title %}İletişim - KEMAH DOĞAL ÜRÜNLER PAZARI{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="py-3 bg-light">
+    <div class="container">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Ana Sayfa</a></li>
+            <li class="breadcrumb-item active">İletişim</li>
+        </ol>
+    </div>
+</nav>
+
+<!-- Contact Header -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="fw-bold">İletişim</h1>
+                <p class="text-muted lead">Bizimle iletişime geçin</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Info -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-map-marker-alt text-primary mb-3" style="font-size: 3rem;"></i>
+                        <h5 class="card-title">Adres</h5>
+                        <p class="card-text">{{ contact_info.get('site_address', 'KEMAH MERKEZ KEMAH/ERZİNCAN') }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-phone text-primary mb-3" style="font-size: 3rem;"></i>
+                        <h5 class="card-title">Telefon</h5>
+                        <p class="card-text">
+                            <a href="tel:{{ contact_info.get('site_phone', '05056987133') }}" class="text-decoration-none">
+                                {{ contact_info.get('site_phone', '05056987133') }}
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-envelope text-primary mb-3" style="font-size: 3rem;"></i>
+                        <h5 class="card-title">E-posta</h5>
+                        <p class="card-text">
+                            <a href="mailto:{{ contact_info.get('site_email', 'kemah@kemah.com.tr') }}" class="text-decoration-none">
+                                {{ contact_info.get('site_email', 'kemah@kemah.com.tr') }}
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body p-5">
+                        <h3 class="text-center mb-4">Bize Mesaj Gönderin</h3>
+                        
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Ad Soyad *</label>
+                                        <input type="text" class="form-control" id="name" name="name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">E-posta *</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Konu</label>
+                                <input type="text" class="form-control" id="subject" name="subject">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Mesaj *</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                                    <i class="fas fa-paper-plane me-2"></i>Mesaj Gönder
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Başarı Mesajı -->
+<div id="successAlert" class="alert alert-success alert-dismissible fade" role="alert" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+    <i class="fas fa-check-circle me-2"></i>
+    <span id="successMessage">Mesajınız başarıyla gönderildi!</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+
+<!-- Hata Mesajı -->
+<div id="errorAlert" class="alert alert-danger alert-dismissible fade" role="alert" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+    <i class="fas fa-exclamation-circle me-2"></i>
+    <span id="errorMessage">Bir hata oluştu!</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, setting up contact form...');
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    if (!form) {
+        console.error('Contact form not found!');
+        return;
+    }
+    
+    console.log('Contact form found, adding event listeners...');
+    
+    // Form submit olayı
+    form.addEventListener('submit', function(e) {
+        console.log('Form submit event triggered');
+        e.preventDefault();
+        e.stopPropagation();
+        sendMessage();
+        return false;
+    });
+    
+    // Buton click olayı
+    if (submitBtn) {
+        submitBtn.addEventListener('click', function(e) {
+            console.log('Submit button clicked');
+            e.preventDefault();
+            e.stopPropagation();
+            sendMessage();
+            return false;
+        });
+    }
+});
+
+function sendMessage() {
+    console.log('sendMessage function called');
+    
+    const form = document.getElementById('contactForm');
+    if (!form) {
+        console.error('Form not found in sendMessage!');
+        return;
+    }
+    
+    const formData = new FormData(form);
+    const data = {};
+    
+    // Form verilerini topla
+    for (let [key, value] of formData.entries()) {
+        data[key] = value;
+    }
+    
+    console.log('Form data collected:', data);
+    console.log('Number of fields:', Object.keys(data).length);
+    
+    // Validasyon
+    if (!data.name || !data.email || !data.message) {
+        showError('Ad, e-posta ve mesaj alanları zorunludur!');
+        return;
+    }
+    
+    // Loading state kaldırıldı
+    
+    // API'ye gönder
+    console.log('Sending fetch request to /api/contact-form');
+    console.log('Request body:', JSON.stringify(data));
+    
+    fetch('/api/contact-form', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        console.log('Response status:', response.status);
+        return response.json();
+    })
+    .then(data => {
+        console.log('Response data:', data);
+        if (data.success) {
+            showSuccess(data.message);
+            form.reset(); // Formu temizle
+        } else {
+            showError(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showError('Bir hata oluştu: ' + error.message);
+    });
+}
+
+function showSuccess(message) {
+    const alert = document.getElementById('successAlert');
+    const messageEl = document.getElementById('successMessage');
+    messageEl.textContent = message;
+    alert.classList.add('show');
+    
+    setTimeout(() => {
+        alert.classList.remove('show');
+    }, 5000);
+}
+
+function showError(message) {
+    const alert = document.getElementById('errorAlert');
+    const messageEl = document.getElementById('errorMessage');
+    messageEl.textContent = message;
+    alert.classList.add('show');
+    
+    setTimeout(() => {
+        alert.classList.remove('show');
+    }, 5000);
+}
+</script>
+{% endblock %}

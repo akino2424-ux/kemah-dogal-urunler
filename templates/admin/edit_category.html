@@ -1,0 +1,149 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Kategori Düzenle - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3 mb-0">Kategori Düzenle</h1>
+            <a href="{{ url_for('admin_categories') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Geri Dön
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('admin_edit_category', category_id=category.id) }}" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <!-- Temel Bilgiler -->
+                            <div class="mb-4">
+                                <h5 class="mb-3">Temel Bilgiler</h5>
+                                
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Kategori Adı *</label>
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ category.name }}" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="slug" class="form-label">URL Slug *</label>
+                                    <input type="text" class="form-control" id="slug" name="slug" value="{{ category.slug }}" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="parent_id" class="form-label">Üst Kategori</label>
+                                    <select class="form-select" id="parent_id" name="parent_id">
+                                        <option value="">Ana Kategori</option>
+                                        {% for cat in all_categories %}
+                                            <option value="{{ cat.id }}" {% if category.parent_id == cat.id %}selected{% endif %}>
+                                                {{ cat.name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Açıklama</label>
+                                    <textarea class="form-control" id="description" name="description" rows="4">{{ category.description or '' }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <!-- Kategori Resmi -->
+                            <div class="mb-4">
+                                <h5 class="mb-3">Kategori Resmi</h5>
+                                
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Resim</label>
+                                    <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                                    <div class="form-text">JPG, PNG formatında, maksimum 2MB</div>
+                                </div>
+                                
+                                {% if category.image %}
+                                <div class="mb-3">
+                                    <label class="form-label">Mevcut Resim</label>
+                                    <div>
+                                        <img src="static/uploads/{{ category.image }}" 
+                                             class="img-fluid rounded" 
+                                             style="max-height: 150px; max-width: 150px;"
+                                             alt="Kategori Resmi">
+                                    </div>
+                                </div>
+                                {% endif %}
+                                
+                                <div class="image-preview" id="imagePreview" style="display: none;">
+                                    <label class="form-label">Yeni Resim Önizleme</label>
+                                    <div>
+                                        <img id="previewImg" class="img-fluid rounded" style="max-height: 150px; max-width: 150px;">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Kategori Ayarları -->
+                            <div class="mb-4">
+                                <h5 class="mb-3">Kategori Ayarları</h5>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="is_active" name="is_active" {% if category.is_active %}checked{% endif %}>
+                                    <label class="form-check-label" for="is_active">
+                                        Kategori Aktif
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Kaydet Butonu -->
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-save me-2"></i>Kategoriyi Güncelle
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Kategori adından slug oluştur
+    document.getElementById('name').addEventListener('input', function() {
+        const name = this.value;
+        const slug = name
+            .toLowerCase()
+            .replace(/ğ/g, 'g')
+            .replace(/ü/g, 'u')
+            .replace(/ş/g, 's')
+            .replace(/ı/g, 'i')
+            .replace(/ö/g, 'o')
+            .replace(/ç/g, 'c')
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .trim('-');
+        
+        document.getElementById('slug').value = slug;
+    });
+    
+    // Resim önizleme
+    document.getElementById('image').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('previewImg').src = e.target.result;
+                document.getElementById('imagePreview').style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+{% endblock %}

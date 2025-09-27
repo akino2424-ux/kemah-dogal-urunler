@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+
+{% block title %}Blog Özellikleri - Kemah{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="fas fa-star me-2"></i>Blog Özellikleri</h2>
+                <div class="d-flex gap-2">
+                    <a href="{{ url_for('admin_blog_management') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Blog Yönetimine Dön
+                    </a>
+                    <button class="btn btn-primary" onclick="showAddFeatureModal()">
+                        <i class="fas fa-plus me-2"></i>Yeni Özellik Ekle
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Özellikler Listesi -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Mevcut Özellikler</h5>
+                </div>
+                <div class="card-body">
+                    {% if features %}
+                        <div class="row">
+                            {% for feature in features %}
+                                <div class="col-md-4 mb-3">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="{{ feature.icon }} text-success me-2"></i>
+                                                    <span class="fw-bold">{{ feature.name }}</span>
+                                                </div>
+                                                <div class="btn-group btn-group-sm">
+                                                    <button class="btn btn-outline-primary" onclick="editFeature({{ feature.id }})" title="Düzenle">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-danger" onclick="deleteFeature({{ feature.id }}, '{{ feature.name }}')" title="Sil">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            {% if feature.description %}
+                                                <p class="text-muted small mb-2">{{ feature.description }}</p>
+                                            {% endif %}
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small class="text-muted">
+                                                    <i class="{{ feature.icon }} me-1"></i>{{ feature.icon }}
+                                                </small>
+                                                <span class="badge bg-{{ 'success' if feature.is_active else 'secondary' }}">
+                                                    {{ 'Aktif' if feature.is_active else 'Pasif' }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-star fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">Henüz özellik bulunmuyor</h5>
+                            <p class="text-muted">İlk özelliğinizi oluşturmak için "Yeni Özellik Ekle" butonuna tıklayın</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Özellik Ekleme/Düzenleme Modal -->
+<div class="modal fade" id="featureModal" tabindex="-1" aria-labelledby="featureModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="featureModalLabel">Yeni Özellik</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="featureForm">
+                    <div class="mb-3">
+                        <label for="feature_name" class="form-label">Özellik Adı *</label>
+                        <input type="text" class="form-control" id="feature_name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="feature_icon" class="form-label">Icon *</label>
+                        <select class="form-select" id="feature_icon" name="icon" required>
+                            {% for icon_code, icon_name in icon_options %}
+                                <option value="{{ icon_code }}">{{ icon_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="form-text">Seçilen icon: <i id="iconPreview" class="fas fa-check text-success"></i></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="feature_description" class="form-label">Açıklama</label>
+                        <textarea class="form-control" id="feature_description" name="description" rows="3" placeholder="Özellik hakkında kısa açıklama..."></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="feature_is_active" name="is_active" checked>
+                            <label class="form-check-label" for="feature_is_active">
+                                Aktif
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-primary" onclick="saveFeature()">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Başarı Mesajı -->
+<div id="successAlert" class="alert alert-success alert-dismissible fade" role="alert" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+    <i class="fas fa-check-circle me-2"></i>
+    <span id="successMessage">İşlem başarıyla tamamlandı!</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+
+<!-- Hata Mesajı -->
+<div id="errorAlert" class="alert alert-danger alert-dismissible fade" role="alert" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+    <i class="fas fa-exclamation-circle me-2"></i>
+    <span id="errorMessage">Bir hata oluştu!</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let currentFeatureId = null;
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Icon preview güncelleme
+    document.getElementById('feature_icon').addEventListener('change', function() {
+        const iconPreview = document.getElementById('iconPreview');
+        iconPreview.className = this.value + ' text-success';
+    });
+});
+
+function showAddFeatureModal() {
+    currentFeatureId = null;
+    document.getElementById('featureForm').reset();
+    document.getElementById('featureModalLabel').textContent = 'Yeni Özellik';
+    document.getElementById('feature_is_active').checked = true;
+    document.getElementById('iconPreview').className = 'fas fa-check text-success';
+    
+    const modal = new bootstrap.Modal(document.getElementById('featureModal'));
+    modal.show();
+}
+
+function editFeature(featureId) {
+    // Özellik bilgilerini getir
+    fetch(`/api/blog-feature/${featureId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const feature = data.feature;
+                currentFeatureId = feature.id;
+                
+                document.getElementById('feature_name').value = feature.name;
+                document.getElementById('feature_icon').value = feature.icon;
+                document.getElementById('feature_description').value = feature.description || '';
+                document.getElementById('feature_is_active').checked = feature.is_active;
+                
+                // Icon preview güncelle
+                document.getElementById('iconPreview').className = feature.icon + ' text-success';
+                
+                document.getElementById('featureModalLabel').textContent = 'Özelliği Düzenle';
+                
+                const modal = new bootstrap.Modal(document.getElementById('featureModal'));
+                modal.show();
+            } else {
+                showError('Özellik bilgileri yüklenemedi!');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showError('Bir hata oluştu!');
+        });
+}
+
+function deleteFeature(featureId, featureName) {
+    if (!confirm(`"${featureName}" özelliğini silmek istediğinizden emin misiniz?`)) {
+        return;
+    }
+    
+    fetch('/api/delete-blog-feature', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({feature_id: featureId})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showSuccess(data.message);
+            setTimeout(() => location.reload(), 1500);
+        } else {
+            showError(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showError('Bir hata oluştu!');
+    });
+}
+
+function saveFeature() {
+    const form = document.getElementById('featureForm');
+    const formData = new FormData(form);
+    
+    const data = {
+        name: formData.get('name'),
+        icon: formData.get('icon'),
+        description: formData.get('description'),
+        is_active: formData.get('is_active') === 'on'
+    };
+    
+    if (!data.name) {
+        showError('Özellik adı gerekli!');
+        return;
+    }
+    
+    const url = currentFeatureId ? '/api/update-blog-feature' : '/api/add-blog-feature';
+    if (currentFeatureId) {
+        data.feature_id = currentFeatureId;
+    }
+    
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showSuccess(data.message);
+            const modal = bootstrap.Modal.getInstance(document.getElementById('featureModal'));
+            modal.hide();
+            setTimeout(() => location.reload(), 1500);
+        } else {
+            showError(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showError('Bir hata oluştu!');
+    });
+}
+
+function showSuccess(message) {
+    const alert = document.getElementById('successAlert');
+    const messageEl = document.getElementById('successMessage');
+    messageEl.textContent = message;
+    alert.classList.add('show');
+    
+    setTimeout(() => {
+        alert.classList.remove('show');
+    }, 3000);
+}
+
+function showError(message) {
+    const alert = document.getElementById('errorAlert');
+    const messageEl = document.getElementById('errorMessage');
+    messageEl.textContent = message;
+    alert.classList.add('show');
+    
+    setTimeout(() => {
+        alert.classList.remove('show');
+    }, 5000);
+}
+</script>
+{% endblock %}
+

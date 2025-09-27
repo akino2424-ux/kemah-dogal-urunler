@@ -1,0 +1,52 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Kategori Silme Onayı - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3 mb-0">Kategori Silme Onayı</h1>
+            <a href="{{ url_for('admin_categories') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Geri Dön
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card border-warning">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Dikkat!</h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning" role="alert">
+                    <h4 class="alert-heading">Bu kategoriyi silmek istediğinizden emin misiniz?</h4>
+                    <p><strong>Kategori:</strong> {{ category_name }}</p>
+                    <p><strong>Bu kategoride {{ products_count }} ürün bulunuyor.</strong></p>
+                    <hr>
+                    <p class="mb-0">
+                        <strong>UYARI:</strong> Bu işlem geri alınamaz! 
+                        Kategori ile birlikte tüm ürünler de silinecektir.
+                    </p>
+                </div>
+                
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="{{ url_for('admin_categories') }}" class="btn btn-secondary">
+                        <i class="fas fa-times me-2"></i>İptal Et
+                    </a>
+                    
+                    <form method="POST" action="{{ url_for('admin_force_delete_category', category_id=category_id) }}" style="display: inline;">
+                        <button type="submit" class="btn btn-danger" 
+                                onclick="return confirm('Bu işlem geri alınamaz! Kategori ve {{ products_count }} ürün silinecek. Devam etmek istediğinizden emin misiniz?')">
+                            <i class="fas fa-trash me-2"></i>Zorla Sil
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

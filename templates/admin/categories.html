@@ -1,0 +1,209 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Kategori Yönetimi - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3 mb-0">Kategori Yönetimi</h1>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                <i class="fas fa-plus me-2"></i>Yeni Kategori Ekle
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Categories Tree -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Kategoriler</h5>
+            </div>
+            <div class="card-body">
+                {% if categories %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Kategori Adı</th>
+                                    <th>URL Slug</th>
+                                    <th>Üst Kategori</th>
+                                    <th>Ürün Sayısı</th>
+                                    <th>Durum</th>
+                                    <th>Tarih</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for category in categories %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                {% if category.image %}
+                                                    <img src="static/uploads/{{ category.image }}" 
+                                                         class="rounded me-3" 
+                                                         style="width: 40px; height: 40px; object-fit: cover;"
+                                                         alt="{{ category.name }}">
+                                                {% else %}
+                                                    <i class="fas fa-folder me-3 text-muted" style="width: 40px; text-align: center;"></i>
+                                                {% endif %}
+                                                <div>
+                                                    {% if category.parent_id %}
+                                                        <i class="fas fa-level-down-alt text-muted me-1"></i>
+                                                    {% endif %}
+                                                    <strong>{{ category.name }}</strong>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <code>{{ category.slug }}</code>
+                                        </td>
+                                        <td>
+                                            {% if category.parent %}
+                                                {{ category.parent.name }}
+                                            {% else %}
+                                                <span class="text-muted">Ana Kategori</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info">{{ category.products|length }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-{{ 'success' if category.is_active else 'secondary' }}">
+                                                {{ 'Aktif' if category.is_active else 'Pasif' }}
+                                            </span>
+                                        </td>
+                                        <td>{{ category.created_at[:10] if category.created_at else 'N/A' }}</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a href="{{ url_for('admin_edit_category', category_id=category.id) }}" 
+                                                   class="btn btn-sm btn-outline-warning">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button class="btn btn-sm btn-outline-danger" 
+                                                        onclick="deleteCategory({{ category.id }})">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-tags text-muted mb-3" style="font-size: 4rem;"></i>
+                        <h5 class="text-muted">Henüz kategori bulunmuyor</h5>
+                        <p class="text-muted">İlk kategorinizi eklemek için yukarıdaki butonu kullanın.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Category Modal -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Yeni Kategori Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="{{ url_for('admin_add_category') }}" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Kategori Adı *</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Kategori Resmi</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                        <div class="form-text">JPG, PNG formatında, maksimum 2MB</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="slug" class="form-label">URL Slug *</label>
+                        <input type="text" class="form-control" id="slug" name="slug" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="parent_id" class="form-label">Üst Kategori</label>
+                        <select class="form-select" id="parent_id" name="parent_id">
+                            <option value="">Ana Kategori</option>
+                            {% for category in categories %}
+                                {% if not category.parent_id %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Açıklama</label>
+                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="is_active" name="is_active" checked>
+                        <label class="form-check-label" for="is_active">
+                            Kategori Aktif
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-primary">Kategori Ekle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Kategori adından slug oluştur
+    document.getElementById('name').addEventListener('input', function() {
+        const name = this.value;
+        const slug = name
+            .toLowerCase()
+            .replace(/ğ/g, 'g')
+            .replace(/ü/g, 'u')
+            .replace(/ş/g, 's')
+            .replace(/ı/g, 'i')
+            .replace(/ö/g, 'o')
+            .replace(/ç/g, 'c')
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .trim('-');
+        
+        document.getElementById('slug').value = slug;
+    });
+    
+    // Kategori silme
+    function deleteCategory(categoryId) {
+        if (confirm('Bu kategoriyi silmek istediğinizden emin misiniz? Bu işlem geri alınamaz!')) {
+            fetch(`/admin/kategoriler/sil/${categoryId}`, {
+                method: 'POST'
+            })
+            .then(response => {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert('Kategori silinirken bir hata oluştu!');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Kategori silinirken bir hata oluştu!');
+            });
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}Ödeme - {{ config.SITE_NAME }}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-credit-card me-2"></i>Ödeme Bilgileri
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" id="checkoutForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="first_name" class="form-label">Ad *</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" 
+                                       value="{% if current_user.is_authenticated %}{{ current_user.first_name }}{% endif %}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="last_name" class="form-label">Soyad *</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name" 
+                                       value="{% if current_user.is_authenticated %}{{ current_user.last_name }}{% endif %}" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">E-posta *</label>
+                                <input type="email" class="form-control" id="email" name="email" 
+                                       value="{% if current_user.is_authenticated %}{{ current_user.email }}{% endif %}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">Telefon *</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" 
+                                       value="{% if current_user.is_authenticated %}{{ current_user.phone }}{% endif %}" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Adres *</label>
+                            <textarea class="form-control" id="address" name="address" rows="3" 
+                                      placeholder="Tam adresinizi yazınız" required>{% if current_user.is_authenticated %}{{ current_user.address }}{% endif %}</textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="city" class="form-label">Şehir *</label>
+                                <input type="text" class="form-control" id="city" name="city" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="postal_code" class="form-label">Posta Kodu *</label>
+                                <input type="text" class="form-control" id="postal_code" name="postal_code" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Ödeme Yöntemi *</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment_method" id="cash_on_delivery" value="cash_on_delivery" checked>
+                                <label class="form-check-label" for="cash_on_delivery">
+                                    <i class="fas fa-truck me-2"></i>Kapıda Ödeme
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment_method" id="bank_transfer" value="bank_transfer">
+                                <label class="form-check-label" for="bank_transfer">
+                                    <i class="fas fa-university me-2"></i>Banka Havalesi
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="notes" class="form-label">Sipariş Notları</label>
+                            <textarea class="form-control" id="notes" name="notes" rows="3" 
+                                      placeholder="Siparişinizle ilgili özel notlarınızı yazabilirsiniz"></textarea>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-check me-2"></i>Siparişi Tamamla
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <!-- Sipariş Özeti -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-shopping-cart me-2"></i>Sipariş Özeti
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% for item in cart_items %}
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="static/uploads/{{ item.image if item.image else 'images/no-image.png' }}" 
+                             alt="{{ item.name }}" class="img-thumbnail me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">{{ item.name }}</h6>
+                            <small class="text-muted">Adet: {{ item.quantity }}</small>
+                        </div>
+                        <div class="text-end">
+                            <strong>{{ "%.2f"|format(item.quantity * item.price) }} ₺</strong>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                    <hr>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Ara Toplam:</span>
+                        <span>{{ "%.2f"|format(total) }} ₺</span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Kargo:</span>
+                        <span class="text-success">
+                            {% if total >= 500 %}
+                                Ücretsiz
+                            {% else %}
+                                25.00 ₺
+                            {% endif %}
+                        </span>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="d-flex justify-content-between">
+                        <strong>Toplam:</strong>
+                        <strong class="text-primary">
+                            {% if total >= 500 %}
+                                {{ "%.2f"|format(total) }} ₺
+                            {% else %}
+                                {{ "%.2f"|format(total + 25) }} ₺
+                            {% endif %}
+                        </strong>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Güvenlik Bilgileri -->
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h6 class="card-title">Güvenli Alışveriş</h6>
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="fas fa-shield-alt text-success me-2"></i>
+                        <small>256 Bit SSL Şifreleme</small>
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="fas fa-undo text-info me-2"></i>
+                        <small>%100 Para İade Garantisi</small>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-heart text-danger me-2"></i>
+                        <small>%100 Müşteri Memnuniyeti</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Checkout sayfasında diğer JavaScript'leri devre dışı bırak
+document.addEventListener('DOMContentLoaded', function() {
+    // Tüm form submit event listener'larını kaldır
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        // Form'un tüm event listener'larını kaldır
+        const newForm = form.cloneNode(true);
+        form.parentNode.replaceChild(newForm, form);
+    });
+    
+    // Tüm button click event listener'larını kaldır
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        const newButton = button.cloneNode(true);
+        button.parentNode.replaceChild(newButton, button);
+    });
+    
+    console.log('Checkout sayfası JavaScript temizlendi');
+});
+</script>
+{% endblock %}

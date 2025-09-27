@@ -1,0 +1,295 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category.name }} - KEMAH DOĞAL ÜRÜNLER PAZARI{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="py-3 bg-light">
+    <div class="container">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Ana Sayfa</a></li>
+            <li class="breadcrumb-item active">{{ category.name }}</li>
+        </ol>
+    </div>
+</nav>
+
+<!-- Category Header -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="fw-bold">{{ category.name }}</h1>
+                {% if category.description %}
+                    <p class="text-muted lead">{{ category.description }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Subcategories -->
+{% if category.children %}
+<section class="py-3 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h4 class="mb-4">Alt Kategoriler</h4>
+                <div class="row">
+                    {% for subcategory in category.children %}
+                        <div class="col-md-3 col-sm-6 mb-3">
+                            <div class="card h-100">
+                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 120px; overflow: hidden;">
+                                    {% if subcategory.image %}
+                                        <img src="static/uploads/{{ subcategory.image }}" 
+                                             class="img-fluid w-100 h-100" 
+                                             style="object-fit: cover;"
+                                             alt="{{ subcategory.name }}">
+                                    {% else %}
+                                        <i class="fas fa-folder text-primary" style="font-size: 2.5rem;"></i>
+                                    {% endif %}
+                                </div>
+                                <div class="card-body text-center">
+                                    <h6 class="card-title">{{ subcategory.name }}</h6>
+                                    <a href="{{ url_for('category', slug=subcategory.slug) }}" class="btn btn-outline-primary btn-sm">
+                                        Ürünleri Gör
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Products Grid -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4>Ürünler ({{ products|length }})</h4>
+                    <div class="d-flex align-items-center">
+                        <label for="sortSelect" class="form-label me-2 mb-0">Sırala:</label>
+                        <select class="form-select" id="sortSelect" style="width: auto;">
+                            <option value="name">İsme Göre</option>
+                            <option value="price_asc">Fiyat (Düşük-Yüksek)</option>
+                            <option value="price_desc">Fiyat (Yüksek-Düşük)</option>
+                            <option value="newest">En Yeni</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% if products %}
+            <div class="position-relative">
+                {% if products|length > 4 %}
+                    <button class="btn position-absolute scroll-left-btn" onclick="scrollProducts('category', 'left')" style="top: 50%; left: -20px; z-index: 10; transform: translateY(-50%); border-radius: 50%; width: 40px; height: 40px;">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="btn position-absolute scroll-right-btn" onclick="scrollProducts('category', 'right')" style="top: 50%; right: -20px; z-index: 10; transform: translateY(-50%); border-radius: 50%; width: 40px; height: 40px;">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                {% endif %}
+                
+                <div class="products-scroll-container" id="category-products" style="overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none;">
+                    <div class="d-flex" style="gap: 1rem;" id="productsGrid">
+                        {% for product in products %}
+                            <div class="flex-shrink-0 product-item" 
+                                 style="width: 280px;"
+                                 data-name="{{ product.name }}" 
+                                 data-price="{{ product.price }}" 
+                                 data-date="{{ product.created_at[:10] if product.created_at else '' }}">
+                                <div class="card product-card h-100 shadow-sm position-relative">
+                                    {% if product.is_new %}
+                                        <span class="badge bg-success position-absolute" style="top: 10px; right: 10px; z-index: 10;">
+                                            YENİ
+                                        </span>
+                                    {% endif %}
+                                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px; overflow: hidden;">
+                                        {% if product.image %}
+                                            <img src="static/uploads/{{ product.image }}" 
+                                                 alt="{{ product.name }}" class="img-fluid w-100 h-100" style="object-fit: cover;">
+                                        {% else %}
+                                            <i class="fas fa-image text-muted" style="font-size: 3rem;"></i>
+                                        {% endif %}
+                                    </div>
+                                    <div class="card-body d-flex flex-column">
+                                        <h6 class="card-title">{{ product.name }}</h6>
+                                        <p class="card-text text-muted small flex-grow-1">
+                                            {{ product.short_description or product.description[:100] + '...' if product.description else 'Doğal ürün' }}
+                                        </p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="h5 text-primary mb-0">{{ product.price }}₺</span>
+                                            <div class="btn-group" role="group">
+                                                <a href="{{ url_for('product_detail', slug=product.slug) }}" class="btn btn-outline-primary btn-sm">
+                                                    Detay
+                                                </a>
+                                                <button class="btn btn-primary btn-sm" onclick="addToCart({{ product.id }})" 
+                                                        {% if product.stock_quantity <= 0 %}disabled{% endif %}>
+                                                    <i class="fas fa-cart-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {% if product.stock_quantity <= 0 %}
+                                            <small class="text-danger">Stokta Yok</small>
+                                        {% elif product.stock_quantity <= 5 %}
+                                            <small class="text-warning">Son {{ product.stock_quantity }} adet!</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="row">
+                <div class="col-12 text-center py-5">
+                    <i class="fas fa-box-open text-muted mb-3" style="font-size: 4rem;"></i>
+                    <h4 class="text-muted">Bu kategoride henüz ürün bulunmuyor</h4>
+                    <p class="text-muted">Yakında yeni ürünler eklenecek.</p>
+                    <a href="{{ url_for('index') }}" class="btn btn-primary">Ana Sayfaya Dön</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Ürün sıralama
+    document.getElementById('sortSelect').addEventListener('change', function() {
+        const sortBy = this.value;
+        const productsGrid = document.getElementById('productsGrid');
+        const products = Array.from(productsGrid.children);
+        
+        products.sort((a, b) => {
+            switch(sortBy) {
+                case 'name':
+                    return a.dataset.name.localeCompare(b.dataset.name);
+                case 'price_asc':
+                    return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+                case 'price_desc':
+                    return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+                case 'newest':
+                    return new Date(b.dataset.date) - new Date(a.dataset.date);
+                default:
+                    return 0;
+            }
+        });
+        
+        products.forEach(product => productsGrid.appendChild(product));
+    });
+    
+    // Sepete ekleme
+    function addToCart(productId) {
+        const button = event.target;
+        const originalText = button.innerHTML;
+        
+        // Butonu devre dışı bırak ve loading göster
+        // Loading state kaldırıldı
+        
+        fetch('/sepet/ekle', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: `product_id=${productId}&quantity=1`
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        })
+        .then(data => {
+            // Başarı mesajı göster
+            showSuccessMessage(data.message || 'Ürün sepete eklendi!');
+            
+            // Sepet sayısını güncelle
+            updateCartCount();
+            
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showErrorMessage('Ürün sepete eklenirken bir hata oluştu!');
+        });
+    }
+    
+    // Başarı mesajı göster
+    function showSuccessMessage(message) {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-success alert-dismissible fade show position-fixed';
+        alertDiv.style.top = '20px';
+        alertDiv.style.right = '20px';
+        alertDiv.style.zIndex = '9999';
+        alertDiv.style.minWidth = '300px';
+        alertDiv.innerHTML = `
+            <i class="fas fa-check-circle me-2"></i>${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.body.appendChild(alertDiv);
+        
+        // 3 saniye sonra kaldır
+        setTimeout(() => {
+            if (alertDiv.parentNode) {
+                alertDiv.remove();
+            }
+        }, 3000);
+    }
+    
+    // Hata mesajı göster
+    function showErrorMessage(message) {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-danger alert-dismissible fade show position-fixed';
+        alertDiv.style.top = '20px';
+        alertDiv.style.right = '20px';
+        alertDiv.style.zIndex = '9999';
+        alertDiv.style.minWidth = '300px';
+        alertDiv.innerHTML = `
+            <i class="fas fa-exclamation-circle me-2"></i>${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.body.appendChild(alertDiv);
+        
+        // 5 saniye sonra kaldır
+        setTimeout(() => {
+            if (alertDiv.parentNode) {
+                alertDiv.remove();
+            }
+        }, 5000);
+    }
+    
+    // Sepet sayısını güncelle
+    function updateCartCount() {
+        fetch('/api/cart/count')
+            .then(response => response.json())
+            .then(data => {
+                const cartCount = document.getElementById('cart-count');
+                if (cartCount) {
+                    cartCount.textContent = data.count;
+                }
+            })
+            .catch(error => console.log('Cart count update failed'));
+    }
+    
+    // Ürün kaydırma fonksiyonu
+    function scrollProducts(section, direction) {
+        const container = document.getElementById(section + '-products');
+        const scrollAmount = 300; // Kaydırma miktarı
+        
+        if (direction === 'left') {
+            container.scrollLeft -= scrollAmount;
+        } else {
+            container.scrollLeft += scrollAmount;
+        }
+    }
+</script>
+{% endblock %}

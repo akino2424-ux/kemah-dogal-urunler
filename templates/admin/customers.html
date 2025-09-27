@@ -1,0 +1,580 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Müşteriler - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="h3 mb-4">Müşteri Yönetimi</h1>
+    </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">{{ stats.total_customers }}</h4>
+                        <p class="card-text">Kayıtlı Müşteri</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-users fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card bg-secondary text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">{{ stats.total_visitors }}</h4>
+                        <p class="card-text">Ziyaretçi</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-eye fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">{{ stats.active_customers }}</h4>
+                        <p class="card-text">Aktif Müşteri</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-user-check fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">{{ "%.2f"|format(stats.total_revenue) }}₺</h4>
+                        <p class="card-text">Toplam Gelir</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-lira-sign fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card bg-warning text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">{{ stats.new_customers_this_month }}</h4>
+                        <p class="card-text">Bu Ay Yeni</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-user-plus fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Search and Filter -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="input-group">
+            <span class="input-group-text">
+                <i class="fas fa-search"></i>
+            </span>
+            <input type="text" class="form-control" id="searchInput" placeholder="Müşteri ara...">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-primary" onclick="filterCustomers('all')">Tümü</button>
+            <button type="button" class="btn btn-outline-success" onclick="filterCustomers('active')">Aktif</button>
+            <button type="button" class="btn btn-outline-warning" onclick="filterCustomers('new')">Yeni</button>
+        </div>
+    </div>
+</div>
+
+<!-- Customers Table -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Müşteri Listesi</h5>
+            </div>
+            <div class="card-body">
+                {% if customers %}
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="customersTable">
+                            <thead>
+                                <tr>
+                                    <th>Müşteri</th>
+                                    <th class="d-none-mobile">İletişim</th>
+                                    <th class="d-none-mobile">IP Adresi</th>
+                                    <th class="d-none-mobile">Kayıt Tarihi</th>
+                                    <th>Sipariş</th>
+                                    <th class="d-none-mobile">Ziyaret</th>
+                                    <th class="d-none-mobile">Harcama</th>
+                                    <th class="d-none-mobile">Son Sipariş</th>
+                                    <th class="d-none-mobile">Durum</th>
+                                    <th class="d-none-mobile">Çerezler</th>
+                                    <th class="d-none-mobile">Engelleme</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for customer in customers %}
+                                    <tr class="customer-row {% if customer.is_admin %}table-warning{% endif %}" 
+                                        data-name="{{ customer.first_name }} {{ customer.last_name }}"
+                                        data-email="{{ customer.email }}"
+                                        data-status="{{ 'active' if customer.order_count > 0 else 'new' }}">
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar {% if customer.is_admin %}bg-danger{% else %}bg-primary{% endif %} text-white rounded-circle d-flex align-items-center justify-content-center me-3" 
+                                                     style="width: 40px; height: 40px;">
+                                                    {% if customer.is_admin %}
+                                                        <i class="fas fa-crown"></i>
+                                                    {% else %}
+                                                        {{ customer.first_name[0] if customer.first_name else 'U' }}
+                                                    {% endif %}
+                                                </div>
+                                                <div>
+                                                    <h6 class="mb-0 {% if customer.is_admin %}text-danger fw-bold{% endif %}">
+                                                        {{ customer.first_name }} {{ customer.last_name }}
+                                                        {% if customer.is_admin %}
+                                                            <i class="fas fa-crown ms-1 text-warning"></i>
+                                                        {% endif %}
+                                                    </h6>
+                                                    <small class="text-muted">@{{ customer.username }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="d-none-mobile">
+                                            <div>
+                                                <i class="fas fa-envelope me-1"></i>
+                                                <a href="mailto:{{ customer.email }}" class="text-decoration-none">
+                                                    {{ customer.email }}
+                                                </a>
+                                            </div>
+                                            {% if customer.phone %}
+                                                <div class="mt-1">
+                                                    <i class="fas fa-phone me-1"></i>
+                                                    <a href="tel:{{ customer.phone }}" class="text-decoration-none">
+                                                        {{ customer.phone }}
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                        <td class="d-none-mobile">
+                                            <div>
+                                                <i class="fas fa-globe me-1"></i>
+                                                <span class="text-muted font-monospace">
+                                                    {{ customer.ip_address or 'N/A' }}
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td class="d-none-mobile">
+                                            <span class="text-muted">
+                                                {{ customer.created_at[:10] if customer.created_at else 'N/A' }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-{{ 'success' if customer.order_count > 0 else 'secondary' }}">
+                                                {{ customer.order_count }}
+                                            </span>
+                                        </td>
+                                        <td class="d-none-mobile">
+                                            <span class="badge bg-info">
+                                                {{ customer.visit_count or 1 }}
+                                            </span>
+                                        </td>
+                                        <td class="d-none-mobile">
+                                            <strong class="text-success">
+                                                {{ "%.2f"|format(customer.total_spent) }}₺
+                                            </strong>
+                                        </td>
+                                        <td class="d-none-mobile">
+                                            {% if customer.last_order_date %}
+                                                <span class="text-muted">
+                                                    {{ customer.last_order_date[:10] }}
+                                                </span>
+                                            {% else %}
+                                                <span class="text-muted">-</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="d-none-mobile">
+                                            {% if customer.is_admin %}
+                                                <span class="badge bg-danger">
+                                                    <i class="fas fa-crown me-1"></i>Admin
+                                                </span>
+                                            {% elif customer.order_count > 0 %}
+                                                <span class="badge bg-success">Aktif</span>
+                                            {% else %}
+                                                <span class="badge bg-warning">Yeni</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="d-none-mobile">
+                                            {% if customer.cookie_consent == 'accepted' %}
+                                                <span class="badge bg-success">
+                                                    <i class="fas fa-check me-1"></i>Kabul
+                                                </span>
+                                            {% elif customer.cookie_consent == 'rejected' %}
+                                                <span class="badge bg-danger">
+                                                    <i class="fas fa-times me-1"></i>Red
+                                                </span>
+                                            {% else %}
+                                                <span class="badge bg-secondary">
+                                                    <i class="fas fa-question me-1"></i>Beklemede
+                                                </span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="d-none-mobile">
+                                            {% if customer.is_admin %}
+                                                <span class="badge bg-info">
+                                                    <i class="fas fa-shield-alt me-1"></i>Korunmalı
+                                                </span>
+                                            {% elif customer.is_blocked %}
+                                                <span class="badge bg-danger">
+                                                    <i class="fas fa-ban me-1"></i>Engelli
+                                                </span>
+                                                {% if customer.blocked_reason %}
+                                                    <br><small class="text-muted">{{ customer.blocked_reason }}</small>
+                                                {% endif %}
+                                            {% else %}
+                                                <span class="badge bg-success">
+                                                    <i class="fas fa-check me-1"></i>Aktif
+                                                </span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-sm btn-outline-primary" 
+                                                        data-customer-id="{{ customer.id }}"
+                                                        onclick="viewCustomerDetails(this.dataset.customerId)"
+                                                        title="Detayları Görüntüle">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-info" 
+                                                        data-customer-id="{{ customer.id }}"
+                                                        onclick="viewCustomerOrders(this.dataset.customerId)"
+                                                        title="Siparişleri Görüntüle">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-success" 
+                                                        data-customer-email="{{ customer.email }}"
+                                                        onclick="sendEmailToCustomer(this.dataset.customerEmail)"
+                                                        title="E-posta Gönder">
+                                                    <i class="fas fa-envelope"></i>
+                                                </button>
+                                                {% if customer.ip_address and not customer.is_admin %}
+                                                    {% if customer.is_blocked %}
+                                                        <button class="btn btn-sm btn-outline-warning" 
+                                                                data-ip-address="{{ customer.ip_address }}"
+                                                                onclick="unblockIP(this.dataset.ipAddress)"
+                                                                title="IP Engelini Kaldır">
+                                                            <i class="fas fa-unlock"></i>
+                                                        </button>
+                                                    {% else %}
+                                                        <button class="btn btn-sm btn-outline-danger" 
+                                                                data-ip-address="{{ customer.ip_address }}"
+                                                                onclick="blockIP(this.dataset.ipAddress)"
+                                                                title="IP'yi Engelle">
+                                                            <i class="fas fa-ban"></i>
+                                                        </button>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">Henüz müşteri bulunmuyor</h5>
+                        <p class="text-muted">Müşteriler burada görüntülenecek</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Customer Details Modal -->
+<div class="modal fade" id="customerDetailsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Müşteri Detayları</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="customerDetailsContent">
+                <!-- Customer details will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Search functionality
+document.getElementById('searchInput').addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const rows = document.querySelectorAll('.customer-row');
+    
+    rows.forEach(row => {
+        const name = row.dataset.name.toLowerCase();
+        const email = row.dataset.email.toLowerCase();
+        
+        if (name.includes(searchTerm) || email.includes(searchTerm)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+});
+
+// Filter functionality
+function filterCustomers(filter) {
+    const rows = document.querySelectorAll('.customer-row');
+    
+    rows.forEach(row => {
+        const status = row.dataset.status;
+        
+        if (filter === 'all') {
+            row.style.display = '';
+        } else if (filter === 'active' && status === 'active') {
+            row.style.display = '';
+        } else if (filter === 'new' && status === 'new') {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+    
+    // Update button states
+    document.querySelectorAll('.btn-group .btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+}
+
+// View customer details
+function viewCustomerDetails(customerId) {
+    // Loading state kaldırıldı
+    new bootstrap.Modal(document.getElementById('customerDetailsModal')).show();
+    
+    // Customer ID'yi kontrol et
+    if (!customerId || customerId === 'undefined') {
+        document.getElementById('customerDetailsContent').innerHTML = `
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                Müşteri ID'si bulunamadı!
+            </div>
+        `;
+        return;
+    }
+    
+    // Fetch customer details
+    fetch(`/api/customer/${customerId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+        document.getElementById('customerDetailsContent').innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        ${data.error}
+            </div>
+        `;
+                return;
+            }
+            
+            // Format the customer details
+            const detailsHtml = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-primary mb-3">
+                            <i class="fas fa-user me-2"></i>Kişisel Bilgiler
+                        </h6>
+                        <table class="table table-sm">
+                            <tr>
+                                <td><strong>Kullanıcı Adı:</strong></td>
+                                <td>${data.username || 'Girilmedi'}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>E-posta:</strong></td>
+                                <td>${data.email || 'Girilmedi'}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ad Soyad:</strong></td>
+                                <td>${data.first_name || 'Girilmedi'} ${data.last_name || 'Girilmedi'}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Telefon:</strong></td>
+                                <td>${data.phone || 'Girilmedi'}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Adres:</strong></td>
+                                <td>${data.address || 'Girilmedi'}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-success mb-3">
+                            <i class="fas fa-chart-line me-2"></i>İstatistikler
+                        </h6>
+                        <table class="table table-sm">
+                            <tr>
+                                <td><strong>Kayıt Tarihi:</strong></td>
+                                <td>${data.created_at || 'Girilmedi'}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Toplam Sipariş:</strong></td>
+                                <td><span class="badge bg-primary">${data.order_count || 0}</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Toplam Harcama:</strong></td>
+                                <td><span class="text-success fw-bold">${parseFloat(data.total_spent || 0).toFixed(2)} ₺</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Son Sipariş:</strong></td>
+                                <td>${data.last_order_date ? data.last_order_date.substring(0, 10) : 'Henüz sipariş yok'}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>IP Adresi:</strong></td>
+                                <td>${data.ip_address || 'Girilmedi'}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Çerez Durumu:</strong></td>
+                                <td>
+                                    ${data.cookie_consent === 'accepted' ? 
+                                        '<span class="badge bg-success"><i class="fas fa-check me-1"></i>Kabul</span>' :
+                                        data.cookie_consent === 'rejected' ?
+                                        '<span class="badge bg-danger"><i class="fas fa-times me-1"></i>Red</span>' :
+                                        '<span class="badge bg-secondary"><i class="fas fa-question me-1"></i>Beklemede</span>'
+                                    }
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                ${data.is_admin ? `
+                    <div class="alert alert-warning mt-3">
+                        <i class="fas fa-crown me-2"></i>
+                        <strong>Admin Kullanıcısı</strong> - Bu kullanıcı yönetici yetkilerine sahiptir.
+                    </div>
+                ` : ''}
+            `;
+            
+            document.getElementById('customerDetailsContent').innerHTML = detailsHtml;
+            
+            // Şifre alanını gizle (güvenlik için)
+            const passwordRows = document.querySelectorAll('tr');
+            passwordRows.forEach(row => {
+                if (row.textContent.includes('Şifre') || row.textContent.includes('Password')) {
+                    row.style.display = 'none';
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('customerDetailsContent').innerHTML = `
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    Müşteri detayları yüklenirken bir hata oluştu!
+                </div>
+            `;
+        });
+}
+
+// View customer orders
+function viewCustomerOrders(customerId) {
+    // Redirect to orders page with customer filter
+    window.location.href = '/admin/siparisler?customer=' + customerId;
+}
+
+// Send email to customer
+function sendEmailToCustomer(email) {
+    window.location.href = 'mailto:' + email;
+}
+
+// Block IP address
+function blockIP(ipAddress) {
+    const reason = prompt('Engelleme sebebini girin:', 'Spam/İstenmeyen davranış');
+    if (reason === null) return; // Kullanıcı iptal etti
+    
+    fetch('/api/block-ip', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            ip_address: ipAddress,
+            reason: reason
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message);
+            location.reload(); // Sayfayı yenile
+        } else {
+            alert('Hata: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Bir hata oluştu!');
+    });
+}
+
+// Unblock IP address
+function unblockIP(ipAddress) {
+    if (!confirm(`IP ${ipAddress} engelini kaldırmak istediğinizden emin misiniz?`)) {
+        return;
+    }
+    
+    fetch('/api/unblock-ip', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            ip_address: ipAddress
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message);
+            location.reload(); // Sayfayı yenile
+        } else {
+            alert('Hata: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Bir hata oluştu!');
+    });
+}
+</script>
+{% endblock %}

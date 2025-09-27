@@ -1,0 +1,989 @@
+{% extends "base.html" %}
+
+{% block title %}Blog Yönetimi - Kemah{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="fas fa-blog me-2"></i>Blog Yönetimi</h2>
+                <div class="d-flex gap-2">
+                    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Dashboard'a Dön
+                    </a>
+                    <button class="btn btn-primary" onclick="showAddPostModal()">
+                        <i class="fas fa-plus me-2"></i>Yeni Blog Yazısı
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- İstatistikler -->
+    <div class="row mb-4">
+        <div class="col-md-6 mb-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title">{{ total_posts }}</h4>
+                            <p class="card-text">Toplam Blog Yazısı</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-file-alt fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title">{{ recent_posts }}</h4>
+                            <p class="card-text">Son 7 Gün</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-clock fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Yazıları -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Blog Yazıları</h5>
+                </div>
+                <div class="card-body">
+                    {% if blog_posts %}
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="blogPostsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Başlık</th>
+                                        <th>Yazar</th>
+                                        <th>Oluşturma Tarihi</th>
+                                        <th>Güncelleme Tarihi</th>
+                                        <th>Önizleme</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for post in blog_posts %}
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    {% if post.primary_image %}
+                                                        <img src="static/uploads/blog/{{ post.primary_image }}" 
+                                                             alt="{{ post.title }}" class="me-2" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">
+                                                    {% else %}
+                                                        <i class="fas fa-file-alt text-muted me-2"></i>
+                                                    {% endif %}
+                                                    <div>
+                                                        <strong>{{ post.title }}</strong>
+                                                        {% if post.image_count > 0 %}
+                                                            <br><small class="text-muted">{{ post.image_count }} resim</small>
+                                                        {% endif %}
+                                                        <br><small class="text-info fw-bold">ID: {{ post.blog_id }}</small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-info">{{ post.author }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="text-muted">
+                                                    {{ post.created_at[:16] if post.created_at else 'Bilinmiyor' }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="text-muted">
+                                                    {{ post.updated_at[:16] if post.updated_at else 'Güncellenmemiş' }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <small class="text-muted">{{ post.excerpt }}</small>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-sm btn-outline-primary" 
+                                                            onclick="editPost('{{ post.blog_id }}')"
+                                                            title="Düzenle">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-info" 
+                                                            onclick="viewPost({{ post.id }})"
+                                                            title="Görüntüle">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-danger" 
+                                                            onclick="deletePost('{{ post.blog_id }}', '{{ post.title }}')"
+                                                            title="Sil">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-blog fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">Henüz blog yazısı bulunmuyor</h5>
+                            <p class="text-muted">İlk blog yazınızı oluşturmak için "Yeni Blog Yazısı" butonuna tıklayın</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Yeni Blog Yazısı Modal -->
+<div class="modal fade" id="addPostModal" tabindex="-1" aria-labelledby="addPostModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addPostModalLabel">Yeni Blog Yazısı</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addPostForm" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="post_title" class="form-label">Başlık *</label>
+                        <input type="text" class="form-control" id="post_title" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="post_author" class="form-label">Yazar *</label>
+                        <input type="text" class="form-control" id="post_author" name="author" required>
+                    </div>
+                    <!-- Ana Resim Yönetimi -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Ana Resim (Blog yazısının başında gösterilir)</label>
+                        <div class="border rounded p-3" id="primaryImageSection">
+                            <div id="primaryImagePreview" class="text-center" style="display: none;">
+                                <img id="primaryImageDisplay" src="" class="img-thumbnail mb-2" style="max-width: 200px; max-height: 150px; object-fit: cover;">
+                                <div>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="removePrimaryImage()">
+                                        <i class="fas fa-times me-1"></i>Ana Resmi Kaldır
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="noPrimaryImage" class="text-center text-muted py-3">
+                                <i class="fas fa-image fa-2x mb-2"></i>
+                                <p>Ana resim seçilmedi</p>
+                                <input type="file" class="form-control" id="primary_image" name="primary_image" accept="image/*" onchange="previewPrimaryImage(this)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diğer Resimler Yönetimi -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Diğer Resimler</label>
+                        <div class="border rounded p-3">
+                            <div id="otherImagesPreview" class="row">
+                                <!-- Diğer resimler buraya eklenecek -->
+                            </div>
+                            <div class="mt-3">
+                                <input type="file" class="form-control" id="other_images" name="other_images" accept="image/*" multiple onchange="previewOtherImages(this)">
+                                <div class="form-text">Desteklenen formatlar: JPG, PNG, GIF, WEBP (Maksimum 5MB). Birden fazla resim seçebilirsiniz.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="post_excerpt" class="form-label">Özet</label>
+                        <textarea class="form-control" id="post_excerpt" name="excerpt" rows="3" placeholder="Blog yazısının kısa özeti..."></textarea>
+                        <div class="form-text">Bu özet blog listesinde ve detay sayfasında görünecektir.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="post_content" class="form-label">İçerik *</label>
+                        <textarea class="form-control" id="post_content" name="content" rows="10" required></textarea>
+                    </div>
+                    
+                    <!-- Blog Detay Sayfası Ayarları -->
+                    <hr class="my-4">
+                    <h6 class="fw-bold text-primary mb-3">
+                        <i class="fas fa-cog me-2"></i>Blog Detay Sayfası Ayarları
+                    </h6>
+                    
+                    <div class="row">
+                        <!-- Yazar Bilgileri -->
+                        <div class="col-md-6 mb-3">
+                            <label for="blog_author_name" class="form-label">Yazar Adı</label>
+                            <input type="text" class="form-control" id="blog_author_name" name="blog_author_name" 
+                                   placeholder="KEMAH DOĞAL ÜRÜNLER PAZARI">
+                            <div class="form-text">Blog detay sayfasında görünecek yazar adı</div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="blog_author_title" class="form-label">Yazar Unvanı</label>
+                            <input type="text" class="form-control" id="blog_author_title" name="blog_author_title" 
+                                   placeholder="Doğal ürünler uzmanı ve içerik yazarı">
+                            <div class="form-text">Yazarın unvanı veya açıklaması</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="blog_author_avatar" class="form-label">Yazar Avatar Resmi</label>
+                        <input type="file" class="form-control" id="blog_author_avatar" name="blog_author_avatar" accept="image/*">
+                        <div class="form-text">Yazar için avatar resmi (JPG, PNG, GIF - Maksimum 2MB)</div>
+                        <div id="currentAvatarPreview" class="mt-2" style="display: none;">
+                            <img id="currentAvatarImage" src="" alt="Mevcut Avatar" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
+                            <small class="text-muted d-block">Mevcut avatar resmi</small>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <!-- Blog Etiketleri -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Blog Etiketleri</label>
+                            <div class="border rounded p-3" style="max-height: 200px; overflow-y: auto;">
+                                <div id="availableTags" class="d-flex flex-wrap gap-2">
+                                    <!-- Mevcut etiketler buraya yüklenecek -->
+                                </div>
+                            </div>
+                            <div class="form-text">Etiketleri seçmek için tıklayın</div>
+                            <input type="hidden" id="selectedTags" name="blog_tags">
+                            <div class="mt-2">
+                                <button type="button" class="btn btn-sm btn-outline-info me-2" onclick="debugTags()">Debug Etiketler</button>
+                                <button type="button" class="btn btn-sm btn-outline-warning" onclick="clearTagSelections()">Temizle</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Blog Özellikleri -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Blog Özellikleri</label>
+                            <div class="border rounded p-3" style="max-height: 200px; overflow-y: auto;">
+                                <div id="availableFeatures" class="d-flex flex-wrap gap-2">
+                                    <!-- Mevcut özellikler buraya yüklenecek -->
+                                </div>
+                            </div>
+                            <div class="form-text">Özellikleri seçmek için tıklayın</div>
+                            <input type="hidden" id="selectedFeatures" name="blog_features">
+                            <div class="mt-2">
+                                <button type="button" class="btn btn-sm btn-outline-success me-2" onclick="debugFeatures()">Debug Özellikler</button>
+                                <button type="button" class="btn btn-sm btn-outline-warning" onclick="clearFeatureSelections()">Temizle</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <!-- Sidebar Ayarları -->
+                        <div class="col-md-6 mb-3">
+                            <label for="sidebar_title" class="form-label">Sidebar Başlığı</label>
+                            <input type="text" class="form-control" id="sidebar_title" name="sidebar_title" 
+                                   placeholder="Blog Hakkında">
+                            <div class="form-text">Sidebar bölümünün başlığı</div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="sidebar_description" class="form-label">Sidebar Açıklaması</label>
+                            <textarea class="form-control" id="sidebar_description" name="sidebar_description" rows="2" 
+                                      placeholder="Doğal ürünler ve sağlık hakkında uzman yazılarımız"></textarea>
+                            <div class="form-text">Sidebar bölümünün açıklaması</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-primary" onclick="savePost()">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Başarı Mesajı -->
+<div id="successAlert" class="alert alert-success alert-dismissible fade" role="alert" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+    <i class="fas fa-check-circle me-2"></i>
+    <span id="successMessage">İşlem başarıyla tamamlandı!</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+
+<!-- Hata Mesajı -->
+<div id="errorAlert" class="alert alert-danger alert-dismissible fade" role="alert" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+    <i class="fas fa-exclamation-circle me-2"></i>
+    <span id="errorMessage">Bir hata oluştu!</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+
+
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.tag-item.selected, .feature-item.selected {
+    border: 2px solid #007bff !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+    transform: scale(1.05);
+    transition: all 0.2s ease;
+}
+
+.tag-item, .feature-item {
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.tag-item:hover, .feature-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let currentPostId = null;
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Modal'ı başlat
+    const addPostModal = new bootstrap.Modal(document.getElementById('addPostModal'));
+    
+    // Etiketleri ve özellikleri yükle
+    loadTagsAndFeatures();
+});
+
+// Etiketleri ve özellikleri yükle
+function loadTagsAndFeatures() {
+    console.log('Etiketler ve özellikler yükleniyor...');
+    
+    // Etiketleri yükle
+    fetch('/api/blog-tags')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Etiketler yüklendi:', data.tags);
+                displayTags(data.tags);
+            } else {
+                console.error('Etiketler yüklenemedi:', data.message);
+            }
+        })
+        .catch(error => console.error('Etiketler yüklenemedi:', error));
+    
+    // Özellikleri yükle
+    fetch('/api/blog-features')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Özellikler yüklendi:', data.features);
+                displayFeatures(data.features);
+            } else {
+                console.error('Özellikler yüklenemedi:', data.message);
+            }
+        })
+        .catch(error => console.error('Özellikler yüklenemedi:', error));
+}
+
+// Etiketleri göster
+function displayTags(tags) {
+    const container = document.getElementById('availableTags');
+    container.innerHTML = '';
+    
+    console.log('Etiketler gösteriliyor:', tags.length, 'adet');
+    
+    tags.forEach(tag => {
+        if (tag.is_active) {
+            const tagElement = document.createElement('span');
+            tagElement.className = `badge ${tag.color} me-2 mb-2 tag-item`;
+            tagElement.style.cursor = 'pointer';
+            tagElement.textContent = tag.name;
+            tagElement.dataset.tagId = tag.id;
+            tagElement.dataset.tagName = tag.name;
+            tagElement.onclick = () => toggleTag(tagElement);
+            container.appendChild(tagElement);
+            console.log('Etiket eklendi:', tag.name);
+        }
+    });
+}
+
+// Özellikleri göster
+function displayFeatures(features) {
+    const container = document.getElementById('availableFeatures');
+    container.innerHTML = '';
+    
+    console.log('Özellikler gösteriliyor:', features.length, 'adet');
+    
+    features.forEach(feature => {
+        if (feature.is_active) {
+            const featureElement = document.createElement('span');
+            featureElement.className = 'badge bg-light text-dark me-2 mb-2 feature-item';
+            featureElement.style.cursor = 'pointer';
+            featureElement.innerHTML = `<i class="${feature.icon} me-1"></i>${feature.name}`;
+            featureElement.dataset.featureId = feature.id;
+            featureElement.dataset.featureName = feature.name;
+            featureElement.onclick = () => toggleFeature(featureElement);
+            container.appendChild(featureElement);
+            console.log('Özellik eklendi:', feature.name);
+        }
+    });
+}
+
+// Etiket seçimi
+function toggleTag(element) {
+    if (element.classList.contains('selected')) {
+        element.classList.remove('selected');
+        element.style.opacity = '0.6';
+    } else {
+        element.classList.add('selected');
+        element.style.opacity = '1';
+    }
+    updateSelectedTags();
+    console.log('Etiket seçildi:', element.dataset.tagName, 'Seçili:', element.classList.contains('selected'));
+}
+
+// Özellik seçimi
+function toggleFeature(element) {
+    if (element.classList.contains('selected')) {
+        element.classList.remove('selected');
+        element.style.opacity = '0.6';
+    } else {
+        element.classList.add('selected');
+        element.style.opacity = '1';
+    }
+    updateSelectedFeatures();
+    console.log('Özellik seçildi:', element.dataset.featureName, 'Seçili:', element.classList.contains('selected'));
+}
+
+// Seçili etiketleri güncelle
+function updateSelectedTags() {
+    const selected = document.querySelectorAll('.tag-item.selected');
+    const names = Array.from(selected).map(el => el.dataset.tagName);
+    const value = names.join(',');
+    document.getElementById('selectedTags').value = value;
+    console.log('Seçili etiketler güncellendi:', value);
+}
+
+// Seçili özellikleri güncelle
+function updateSelectedFeatures() {
+    const selected = document.querySelectorAll('.feature-item.selected');
+    const names = Array.from(selected).map(el => el.dataset.featureName);
+    const value = names.join(',');
+    document.getElementById('selectedFeatures').value = value;
+    console.log('Seçili özellikler güncellendi:', value);
+}
+
+// Etiketleri seç
+function selectTags(tagString) {
+    if (!tagString) {
+        console.log('Etiket string boş, seçimler temizleniyor');
+        clearTagSelections();
+        return;
+    }
+    
+    const tagNames = tagString.split(',').map(name => name.trim()).filter(name => name.length > 0);
+    const tagElements = document.querySelectorAll('.tag-item');
+    
+    console.log('Etiketler seçiliyor:', tagNames);
+    
+    // Önce tüm seçimleri temizle
+    tagElements.forEach(element => {
+        element.classList.remove('selected');
+        element.style.opacity = '0.6';
+    });
+    
+    // Sonra seçili olanları işaretle
+    tagNames.forEach(tagName => {
+        const element = Array.from(tagElements).find(el => el.dataset.tagName === tagName);
+        if (element) {
+            element.classList.add('selected');
+            element.style.opacity = '1';
+            console.log('Etiket seçildi:', tagName);
+        } else {
+            console.warn('Etiket bulunamadı:', tagName);
+        }
+    });
+    
+    updateSelectedTags();
+}
+
+// Etiket seçimlerini temizle
+function clearTagSelections() {
+    document.querySelectorAll('.tag-item').forEach(element => {
+        element.classList.remove('selected');
+        element.style.opacity = '0.6';
+    });
+    updateSelectedTags();
+}
+
+// Özellikleri seç
+function selectFeatures(featureString) {
+    if (!featureString) {
+        console.log('Özellik string boş, seçimler temizleniyor');
+        clearFeatureSelections();
+        return;
+    }
+    
+    const featureNames = featureString.split(',').map(name => name.trim()).filter(name => name.length > 0);
+    const featureElements = document.querySelectorAll('.feature-item');
+    
+    console.log('Özellikler seçiliyor:', featureNames);
+    
+    // Önce tüm seçimleri temizle
+    featureElements.forEach(element => {
+        element.classList.remove('selected');
+        element.style.opacity = '0.6';
+    });
+    
+    // Sonra seçili olanları işaretle
+    featureNames.forEach(featureName => {
+        const element = Array.from(featureElements).find(el => el.dataset.featureName === featureName);
+        if (element) {
+            element.classList.add('selected');
+            element.style.opacity = '1';
+            console.log('Özellik seçildi:', featureName);
+        } else {
+            console.warn('Özellik bulunamadı:', featureName);
+        }
+    });
+    
+    updateSelectedFeatures();
+}
+
+// Özellik seçimlerini temizle
+function clearFeatureSelections() {
+    document.querySelectorAll('.feature-item').forEach(element => {
+        element.classList.remove('selected');
+        element.style.opacity = '0.6';
+    });
+    updateSelectedFeatures();
+}
+
+// Etiket ve özellik seçimlerini temizle
+function clearTagAndFeatureSelections() {
+    console.log('Etiket ve özellik seçimleri temizleniyor');
+    
+    clearTagSelections();
+    clearFeatureSelections();
+    
+    console.log('Seçimler temizlendi');
+}
+
+// Debug fonksiyonları
+function debugTags() {
+    const selected = document.querySelectorAll('.tag-item.selected');
+    const names = Array.from(selected).map(el => el.dataset.tagName);
+    const value = document.getElementById('selectedTags').value;
+    
+    console.log('=== ETİKET DEBUG ===');
+    console.log('Seçili etiket sayısı:', selected.length);
+    console.log('Seçili etiket isimleri:', names);
+    console.log('Hidden input değeri:', value);
+    console.log('Tüm etiket elementleri:', document.querySelectorAll('.tag-item').length);
+    console.log('Value length:', value ? value.length : 0);
+    console.log('Value empty check:', !value || value.trim() === '');
+    
+    alert(`Seçili Etiketler: ${names.join(', ') || 'Yok'}\nHidden Input: "${value || 'Boş'}"\nBoş mu: ${!value || value.trim() === ''}`);
+}
+
+function debugFeatures() {
+    const selected = document.querySelectorAll('.feature-item.selected');
+    const names = Array.from(selected).map(el => el.dataset.featureName);
+    const value = document.getElementById('selectedFeatures').value;
+    
+    console.log('=== ÖZELLİK DEBUG ===');
+    console.log('Seçili özellik sayısı:', selected.length);
+    console.log('Seçili özellik isimleri:', names);
+    console.log('Hidden input değeri:', value);
+    console.log('Tüm özellik elementleri:', document.querySelectorAll('.feature-item').length);
+    console.log('Value length:', value ? value.length : 0);
+    console.log('Value empty check:', !value || value.trim() === '');
+    
+    alert(`Seçili Özellikler: ${names.join(', ') || 'Yok'}\nHidden Input: "${value || 'Boş'}"\nBoş mu: ${!value || value.trim() === ''}`);
+}
+
+function showAddPostModal() {
+    // Form gönderim durumunu sıfırla
+    isSubmitting = false;
+    
+    currentPostId = null;
+    document.getElementById('addPostForm').reset();
+    document.getElementById('addPostModalLabel').textContent = 'Yeni Blog Yazısı';
+    
+    // Resim önizlemelerini temizle
+    document.getElementById('primaryImagePreview').style.display = 'none';
+    document.getElementById('noPrimaryImage').style.display = 'block';
+    document.getElementById('otherImagesPreview').innerHTML = '';
+    
+    // Blog detay sayfası ayarlarını temizle
+    document.getElementById('blog_author_name').value = '';
+    document.getElementById('blog_author_title').value = '';
+    document.getElementById('sidebar_title').value = '';
+    document.getElementById('sidebar_description').value = '';
+    document.getElementById('currentAvatarPreview').style.display = 'none';
+    
+    // Etiket ve özellik seçimlerini temizle
+    clearTagAndFeatureSelections();
+    
+    // Kaydet butonunu aktif et
+    const saveBtn = document.querySelector('#addPostModal .btn-primary');
+    saveBtn.disabled = false;
+    saveBtn.innerHTML = 'Kaydet';
+    
+    const modal = new bootstrap.Modal(document.getElementById('addPostModal'));
+    modal.show();
+}
+
+// Ana resim önizleme
+function previewPrimaryImage(input) {
+    const file = input.files[0];
+    const preview = document.getElementById('primaryImagePreview');
+    const display = document.getElementById('primaryImageDisplay');
+    const noImage = document.getElementById('noPrimaryImage');
+    
+    if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            display.src = e.target.result;
+            preview.style.display = 'block';
+            noImage.style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+// Ana resmi kaldır
+function removePrimaryImage() {
+    document.getElementById('primary_image').value = '';
+    document.getElementById('primaryImagePreview').style.display = 'none';
+    document.getElementById('noPrimaryImage').style.display = 'block';
+}
+
+// Diğer resimler önizleme
+function previewOtherImages(input) {
+    const files = input.files;
+    const container = document.getElementById('otherImagesPreview');
+    
+    // Mevcut resimleri koru, sadece yeni resimleri ekle
+    if (files.length > 0) {
+        Array.from(files).forEach((file, index) => {
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const col = document.createElement('div');
+                    col.className = 'col-md-3 mb-2';
+                    col.innerHTML = `
+                        <div class="position-relative">
+                            <img src="${e.target.result}" class="img-thumbnail" style="width: 100%; height: 120px; object-fit: cover;">
+                            <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" 
+                                    onclick="removeOtherImage(this)" 
+                                    title="Resmi Kaldır"
+                                    style="width: 20px; height: 20px; padding: 0; border-radius: 50%;">
+                                <i class="fas fa-times" style="font-size: 8px;"></i>
+                            </button>
+                            <div class="position-absolute top-0 start-0 m-1">
+                                <span class="badge bg-secondary">${container.children.length + 1}</span>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(col);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+}
+
+// Diğer resimlerden birini kaldır
+function removeOtherImage(button) {
+    const col = button.closest('.col-md-3');
+    col.remove();
+    
+    // Resim numaralarını yeniden düzenle
+    const container = document.getElementById('otherImagesPreview');
+    const images = container.querySelectorAll('.col-md-3');
+    images.forEach((img, index) => {
+        const badge = img.querySelector('.badge');
+        if (badge) {
+            badge.textContent = index + 1;
+        }
+    });
+    
+    // Input'tan da kaldır (bu biraz karmaşık, şimdilik sadece görsel olarak kaldır)
+    // Gerçek uygulamada FileList'i güncellemek gerekir
+}
+
+function editPost(blogId) {
+    // Blog yazısını getir ve modal'ı doldur
+    fetch(`/api/blog-post/${blogId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const post = data.post;
+                currentPostId = post.blog_id;
+                
+                // Form alanlarını doldur
+                document.getElementById('post_title').value = post.title;
+                document.getElementById('post_author').value = post.author;
+                document.getElementById('post_excerpt').value = post.excerpt || '';
+                document.getElementById('post_content').value = post.content;
+                
+                // Blog detay sayfası ayarlarını doldur
+                document.getElementById('blog_author_name').value = post.blog_author_name || '';
+                document.getElementById('blog_author_title').value = post.blog_author_title || '';
+                document.getElementById('sidebar_title').value = post.sidebar_title || '';
+                document.getElementById('sidebar_description').value = post.sidebar_description || '';
+                
+                // Etiketleri ve özellikleri seç (kısa gecikme ile)
+                setTimeout(() => {
+                    selectTags(post.blog_tags || '');
+                    selectFeatures(post.blog_features || '');
+                }, 100);
+                
+                // Mevcut avatar resmini göster
+                if (post.blog_author_avatar) {
+                    document.getElementById('currentAvatarImage').src = `/static/uploads/blog/${post.blog_author_avatar}`;
+                    document.getElementById('currentAvatarPreview').style.display = 'block';
+                } else {
+                    document.getElementById('currentAvatarPreview').style.display = 'none';
+                }
+                
+                // Mevcut resimleri ana resim ve diğer resimler olarak ayır
+                const primaryImagePreview = document.getElementById('primaryImagePreview');
+                const primaryImageDisplay = document.getElementById('primaryImageDisplay');
+                const noPrimaryImage = document.getElementById('noPrimaryImage');
+                const otherImagesPreview = document.getElementById('otherImagesPreview');
+                
+                // Ana resmi bul ve göster
+                const primaryImage = post.images.find(img => img.is_primary);
+                if (primaryImage) {
+                    primaryImageDisplay.src = `/static/uploads/blog/${primaryImage.filename}`;
+                    primaryImagePreview.style.display = 'block';
+                    noPrimaryImage.style.display = 'none';
+                } else {
+                    primaryImagePreview.style.display = 'none';
+                    noPrimaryImage.style.display = 'block';
+                }
+                
+                // Diğer resimleri göster
+                const otherImages = post.images.filter(img => !img.is_primary);
+                otherImagesPreview.innerHTML = '';
+                
+                if (otherImages.length > 0) {
+                    otherImages.forEach((image, index) => {
+                        const col = document.createElement('div');
+                        col.className = 'col-md-3 mb-2';
+                        col.innerHTML = `
+                            <div class="position-relative">
+                                <img src="/static/uploads/blog/${image.filename}" 
+                                     class="img-thumbnail" 
+                                     style="width: 100%; height: 120px; object-fit: cover;">
+                                <button class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" 
+                                        onclick="deleteImageFromEdit(${image.id})"
+                                        title="Resmi Sil"
+                                        style="width: 20px; height: 20px; padding: 0; border-radius: 50%;">
+                                    <i class="fas fa-times" style="font-size: 8px;"></i>
+                                </button>
+                                <div class="position-absolute top-0 start-0 m-1">
+                                    <span class="badge bg-secondary">${index + 1}</span>
+                                </div>
+                            </div>
+                        `;
+                        otherImagesPreview.appendChild(col);
+                    });
+                }
+                
+                // Modal başlığını güncelle
+                document.getElementById('addPostModalLabel').textContent = 'Blog Yazısını Düzenle';
+                
+                // Modal'ı göster
+                const modal = new bootstrap.Modal(document.getElementById('addPostModal'));
+                modal.show();
+            } else {
+                showError('Blog yazısı yüklenemedi!');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showError('Bir hata oluştu!');
+        });
+}
+
+function viewPost(postId) {
+    // Blog yazısını görüntüle
+    window.open('/blog/' + postId, '_blank');
+}
+
+function deletePost(blogId, title) {
+    if (!confirm(`"${title}" başlıklı blog yazısını silmek istediğinizden emin misiniz?`)) {
+        return;
+    }
+    
+    fetch('/api/delete-blog-post', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            blog_id: blogId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showSuccess(data.message);
+            setTimeout(() => location.reload(), 1500);
+        } else {
+            showError(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showError('Bir hata oluştu!');
+    });
+}
+
+// Form gönderim durumu kontrolü
+let isSubmitting = false;
+
+function savePost() {
+    // Çift tıklama koruması
+    if (isSubmitting) {
+        console.log('Form zaten gönderiliyor, çift tıklama engellendi');
+        return;
+    }
+    
+    const form = document.getElementById('addPostForm');
+    const formData = new FormData(form);
+    
+    // Validasyon
+    const title = formData.get('title');
+    const author = formData.get('author');
+    const content = formData.get('content');
+    
+    if (!title || !author || !content) {
+        showError('Tüm alanları doldurun!');
+        return;
+    }
+    
+    // Ana resim dosya boyutu kontrolü (5MB)
+    const primaryImageFile = formData.get('primary_image');
+    if (primaryImageFile && primaryImageFile.size > 5 * 1024 * 1024) {
+        showError(`Ana resim dosyası 5MB'dan büyük olamaz!`);
+        return;
+    }
+    
+    // Diğer resimler dosya boyutu kontrolü (5MB)
+    const otherImageFiles = formData.getAll('other_images');
+    for (let file of otherImageFiles) {
+        if (file && file.size > 5 * 1024 * 1024) {
+            showError(`Resim dosyası ${file.name} 5MB'dan büyük olamaz!`);
+            return;
+        }
+    }
+    
+    // Form gönderim durumunu işaretle
+    isSubmitting = true;
+    
+    // Loading state kaldırıldı
+    
+    // API'ye gönder
+    const url = currentPostId ? '/api/update-blog-post' : '/api/add-blog-post';
+    
+    // Eğer düzenleme modundaysa, blog_id'yi ekle
+    if (currentPostId) {
+        formData.append('blog_id', currentPostId);
+    }
+    
+    // Etiket ve özellik verilerini ekle
+    const selectedTags = document.getElementById('selectedTags').value;
+    const selectedFeatures = document.getElementById('selectedFeatures').value;
+    formData.append('blog_tags', selectedTags);
+    formData.append('blog_features', selectedFeatures);
+    
+    console.log('Blog kaydediliyor:', { 
+        title, 
+        author, 
+        url, 
+        isEdit: !!currentPostId,
+        selectedTags: selectedTags,
+        selectedFeatures: selectedFeatures
+    });
+    
+    fetch(url, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showSuccess(data.message);
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addPostModal'));
+            modal.hide();
+            setTimeout(() => location.reload(), 1500);
+        } else {
+            showError(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showError('Bir hata oluştu!');
+        isSubmitting = false;
+    });
+}
+
+function showSuccess(message) {
+    const alert = document.getElementById('successAlert');
+    const messageEl = document.getElementById('successMessage');
+    messageEl.textContent = message;
+    alert.classList.add('show');
+    
+    setTimeout(() => {
+        alert.classList.remove('show');
+    }, 3000);
+}
+
+function showError(message) {
+    const alert = document.getElementById('errorAlert');
+    const messageEl = document.getElementById('errorMessage');
+    messageEl.textContent = message;
+    alert.classList.add('show');
+    
+    setTimeout(() => {
+        alert.classList.remove('show');
+    }, 5000);
+}
+
+
+
+function deleteImageFromEdit(imageId) {
+    if (confirm('Bu resmi silmek istediğinizden emin misiniz?')) {
+        fetch('/api/delete-blog-image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({image_id: imageId})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showSuccess(data.message);
+                // Düzenleme formundaki resimleri yenile
+                if (currentPostId) {
+                    editPost(currentPostId);
+                }
+            } else {
+                showError(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showError('Bir hata oluştu!');
+        });
+    }
+}
+
+
+</script>
+{% endblock %}

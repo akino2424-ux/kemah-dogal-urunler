@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}KEMAH DOĞAL ÜRÜNLER PAZARI{% endblock %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS - Inline -->
+    <style>
+    /* Kemah Doğal Ürünler Pazarı - Ana CSS */
+
+:root {
+    --primary-color: #28a745;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --info-color: #17a2b8;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    color: var(--dark-color);
+    min-height: 100vh;
+    padding-bottom: 100px;
+    font-size: 110%;
+}
+
+main {
+    flex: 1;
+    min-height: calc(100vh - 200px);
+}
+
+.scrolling-text-container {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    width: 50%;
+}
+
+@media (min-width: 992px) {
+    .scrolling-text-container {
+        width: 50%;
+        max-width: none;
+    }
+}
+
+.scrolling-text {
+    display: inline-block;
+    animation: scroll-left 20s linear infinite;
+    white-space: nowrap;
+    font-size: 0.9rem;
+}
+
+.scrolling-text i {
+    animation: pulse 2s infinite;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(150%);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.navbar {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #f8f9fa !important;
+    padding: 0.55rem 1rem;
+}
+
+.search-section {
+    background-color: #f8f9fa !important;
+    border-bottom: 1px solid #e9ecef !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    min-height: 50px;
+}
+
+.search-section .form-control {
+    border-radius: 25px;
+    border: 1px solid #28a745;
+    padding: 6px 15px;
+    font-size: 0.9rem;
+    height: 38px;
+}
+
+.search-section .form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.search-section .btn-success {
+    border-radius: 25px;
+    padding: 6px 18px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    height: 38px;
+    font-size: 0.9rem;
+}
+
+.search-section .btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+    transform: translateY(-1px);
+}
+
+.search-info {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.search-info i {
+    color: #28a745;
+}
+
+.navbar-brand,
+.navbar-brand *,
+.navbar-brand::before,
+.navbar-brand::after,
+.navbar-brand:hover,
+.navbar-brand:focus,
+.navbar-brand:active,
+.navbar-brand:visited {
+    font-weight: 700;
+    font-size: 1.21rem;
+    transition: none !important;
+    background-color: transparent !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    position: static !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    transform: none !important;
+    scale: none !important;
+    rotate: none !important;
+    translate: none !important;
+    pointer-events: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    -webkit-touch-callout: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    cursor: default !important;
+    mix-blend-mode: multiply !important;
+    opacity: 0.95 !important;
+    filter: brightness(1.1) contrast(1.05) !important;
+}
+
+.navbar-brand img,
+.navbar-brand img *,
+.navbar-brand img::before,
+.navbar-brand img::after,
+.navbar-brand img:hover,
+.navbar-brand img:focus,
+.navbar-brand img:active,
+.navbar-brand img:visited {
+    filter: none !important;
+    background-color: transparent !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    transition: none !important;
+    position: static !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    transform: none !important;
+    scale: none !important;
+    rotate: none !important;
+    translate: none !important;
+    pointer-events: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    -webkit-touch-callout: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    cursor: default !important;
+    animation: none !important;
+    -webkit-animation: none !important;
+    -moz-animation: none !important;
+    -o-animation: none !important;
+    mix-blend-mode: multiply !important;
+    opacity: 0.95 !important;
+    filter: brightness(1.1) contrast(1.05) !important;
+}
+
+.brand-text-container {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.brand-main-text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #007bff;
+    font-family: 'Times New Roman', serif;
+    letter-spacing: 1px;
+}
+
+.brand-sub-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #007bff;
+    font-family: Arial, sans-serif;
+    letter-spacing: 0.5px;
+    margin-top: -2px;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    transition: color 0.3s ease;
+    padding: 0.55rem 1rem;
+    font-size: 110%;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+.hero-slider {
+    margin-bottom: 0;
+}
+
+.hero-slide {
+    background: linear-gradient(135deg, var(--primary-color), var(--success-color));
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-size: 20px 20px;
+}
+
+.feature-box {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+    background: white;
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.category-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 15px;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.categories-section {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.categories-section .container {
+    max-width: 1200px !important;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.categories-section .row {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.categories-section .col-md-4,
+.categories-section .col-lg-3 {
+    max-width: 25%;
+    flex: 0 0 25%;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+@media (min-width: 992px) {
+    .categories-section {
+        padding: 0 20px;
+    }
+    
+    .categories-section .col-lg-3 {
+        max-width: 25%;
+        flex: 0 0 25%;
+        padding: 0 20px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .categories-section .col-md-4 {
+        max-width: 33.333%;
+        flex: 0 0 33.333%;
+        padding: 0 12px;
+    }
+}
+
+@media (max-width: 767px) {
+    .categories-section {
+        padding: 0 10px;
+    }
+    
+    .categories-section .col-md-4,
+    .categories-section .col-lg-3 {
+        max-width: 50%;
+        flex: 0 0 50%;
+        padding: 0 8px;
+        margin-bottom: 15px;
+    }
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.category-card .card-img-top {
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.category-card .card-img-top img {
+    transition: all 0.3s ease;
+}
+
+.category-card:hover .card-img-top img {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+}
+
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.product-card .card-img-top {
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.product-card .card-img-top img {
+    transition: all 0.3s ease;
+}
+
+.product-card:hover .card-img-top img {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+}
+
+.btn {
+    border-radius: 0.55rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    padding: 0.55rem 1.1rem;
+    font-size: 110%;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--success-color));
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #218838, #1e7e34);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+}
+
+.btn-outline-primary {
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    padding: 12px 15px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 110%;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: box-shadow 0.3s ease;
+    margin-bottom: 1.1rem;
+}
+
+.card:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card-body {
+    padding: 1.1rem;
+}
+
+footer {
+    background: #2c3e50 !important;
+}
+
+footer a {
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #ffffff !important;
+}
+
+.cookie-banner {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    background: #ffffff !important;
+    border-top: 2px solid #e9ecef;
+    padding: 20px 0;
+    z-index: 9999 !important;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+    display: block !important;
+    transform: translateY(0) !important;
+    transition: all 0.4s ease;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.cookie-banner.hidden {
+    transform: translateY(100%) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    transition: all 0.4s ease !important;
+    display: none !important;
+}
+
+.categories-dropdown .dropdown-toggle {
+    border-radius: 25px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-width: 2px;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    min-width: 150px;
+}
+
+.categories-dropdown .dropdown-toggle:hover {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+}
+
+.categories-dropdown .dropdown-menu {
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    margin-top: 10px;
+    min-width: 250px;
+    padding: 8px 0;
+}
+
+.categories-dropdown .dropdown-item {
+    padding: 12px 20px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #f8f9fa;
+    font-size: 1rem;
+}
+
+.categories-dropdown .dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: var(--success-color);
+    padding-left: 25px;
+    transform: translateX(5px);
+}
+
+.phone-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100%;
+}
+
+.phone-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #6c757d;
+    letter-spacing: 0.3px;
+    line-height: 1.1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 3px;
+}
+
+.phone-number {
+    color: #007bff;
+    text-decoration: underline;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.2;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html {
+    font-size: 110%;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select, label {
+    font-size: 110% !important;
+}
+
+.container {
+    max-width: 1200px !important;
+}
+
+@media (max-width: 768px) {
+    .scrolling-text {
+        font-size: 0.8rem;
+        animation-duration: 18s;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .categories-dropdown .dropdown-toggle {
+        font-size: 1rem;
+        padding: 8px 16px;
+        min-width: 120px;
+    }
+    
+    .categories-dropdown .dropdown-item {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .phone-title {
+        font-size: 0.75rem;
+    }
+    
+    .phone-number {
+        font-size: 1rem;
+    }
+}
+
+.featured-products-ad {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-ad-card {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid transparent;
+}
+
+.product-ad-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(40, 167, 69, 0.2) !important;
+    border-color: #28a745;
+}
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-primary text-white py-2">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-md-10">
+                    <div class="d-flex align-items-center">
+                        <!-- Kayan Yazı -->
+                        <div class="scrolling-text-container">
+                            <div class="scrolling-text">
+                                <i class="fas fa-truck me-2"></i>
+                                <span class="fw-bold">1000 TL ve Üzeri Siparişlerde Ücretsiz Kargo!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-2">
+                    <div class="d-flex justify-content-end align-items-center">
+                        <div class="phone-contact">
+                            <div class="phone-title">TELEFONLA ULAŞABİLİRSİNİZ</div>
+                            <div class="phone-number">0544 459 10 00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="{{ url_for('index') }}">
+                <img src="static/images/kemah-final-logo.png" alt="Kemah Logo" style="height: 90px; width: auto; display: block; pointer-events: none; user-select: none; background: transparent !important; opacity: 0.95; mix-blend-mode: multiply; filter: brightness(1.1) contrast(1.05);">
+                <div class="brand-text-container ms-3">
+                    <div class="brand-main-text">KEMAH</div>
+                    <div class="brand-sub-text">DOĞAL ÜRÜNLER PAZARI</div>
+                </div>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Ana Sayfa</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown">
+                            Kategoriler
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for category in categories %}
+                                {% if not category['parent_id'] %}
+                                    <li><a class="dropdown-item" href="{{ url_for('category', slug=category['slug']) }}">{{ category['name'] }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('contact') }}">İletişim</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('cart') }}">
+                            <i class="fas fa-shopping-cart"></i>
+                            Sepet (<span id="cart-count">0</span>)
+                        </a>
+                    </li>
+                    {% if session.user_id %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user"></i> {{ session.username }}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ url_for('profile') }}">Profil</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('orders') }}">Siparişlerim</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ url_for('logout') }}">Çıkış Yap</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('login') }}">
+                                <i class="fas fa-sign-in-alt"></i> Giriş
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('register') }}">
+                                <i class="fas fa-user-plus"></i> Kayıt Ol
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Section -->
+    <section class="search-section py-3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <div class="categories-dropdown">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-success dropdown-toggle" type="button" id="mainCategoriesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Kategoriler
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="mainCategoriesDropdown">
+                                {% for category in categories %}
+                                    {% if not category['parent_id'] %}
+                                        <li>
+                                            <a class="dropdown-item" href="{{ url_for('category', slug=category['slug']) }}">
+                                                {{ category['name'] }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <form class="search-form" action="{{ url_for('search') }}" method="GET">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="q" placeholder="Ürün ara..." value="{{ request.args.get('q', '') }}">
+                            <button class="btn btn-success" type="submit">
+                                <i class="fas fa-search"></i> Ara
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="search-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <span>{{ categories|length }} kategori, binlerce ürün</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% block extra_content %}{% endblock %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light mt-5">
+        <!-- Newsletter Section -->
+        <div class="newsletter-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h6 class="mb-0">E-Bülten aboneliği ile fırsatları kaçırmayın!</h6>
+                    </div>
+                    <div class="col-lg-6">
+                        <form class="newsletter-form d-flex">
+                            <input type="email" class="form-control me-2" placeholder="E-posta adresiniz">
+                            <button type="submit" class="btn btn-pink">Abone Ol</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container py-5">
+            <div class="row">
+                <!-- Logo ve Açıklama -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="static/images/kemah-final-logo.png" alt="Kemah Logo" style="height: 60px; width: auto; margin-right: 15px;">
+                        <div>
+                            <h5 class="text-white fw-bold mb-0">KEMAH</h5>
+                            <small class="text-muted">DOĞAL ÜRÜNLER PAZARI</small>
+                        </div>
+                    </div>
+                    <p class="text-muted small">
+                        Doğal ve organik ürünlerin güvenilir adresi. Kemah'ın eşsiz lezzetlerini sofralarınıza taşıyoruz.
+                    </p>
+                    <!-- Sosyal Medya İkonları -->
+                    <div class="social-icons d-flex">
+                        <a href="#" class="social-icon me-2">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon me-2" style="background: #E4405F;">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon me-2" style="background: #1DA1F2;">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon" style="background: #25D366;">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- KURUMSAL -->
+                <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
+                    <h6 class="text-white fw-bold mb-3">KURUMSAL</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Hakkımızda</a></li>
+                        <li class="mb-2"><a href="{{ url_for('contact') }}" class="text-muted text-decoration-none">İLETİŞİM</a></li>
+                    </ul>
+                </div>
+
+                <!-- HİZMET & DESTEK -->
+                <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
+                    <h6 class="text-white fw-bold mb-3">HİZMET & DESTEK</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none" onclick="showCookieSettings()">Çerezler</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Kişisel Verilerin Korunması Kanunu (KVKK)</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Gizlilik</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Güvenli Ödeme</a></li>
+                    </ul>
+                </div>
+
+                <!-- SİPARİŞ -->
+                <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
+                    <h6 class="text-white fw-bold mb-3">SİPARİŞ</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Banka Hesap Bilgilerimiz</a></li>
+                        <li class="mb-2"><a href="{{ url_for('cart') }}" class="text-muted text-decoration-none">Sepetim</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Yardım</a></li>
+                    </ul>
+                </div>
+
+                <!-- İLETİŞİM -->
+                <div class="col-lg-3 col-md-8 mb-4">
+                    <h6 class="text-white fw-bold mb-3">İLETİŞİM BİLGİLERİ</h6>
+                    <div class="contact-info">
+                        <p class="text-muted mb-2">
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            Kemah/Erzincan
+                        </p>
+                        <p class="text-muted mb-2">
+                            <i class="fas fa-phone me-2"></i>
+                            0544 459 10 00
+                        </p>
+                        <p class="text-muted mb-2">
+                            <i class="fas fa-envelope me-2"></i>
+                            info@kemahdogalurunler.com
+                        </p>
+                        <p class="text-muted mb-0">
+                            <i class="fas fa-clock me-2"></i>
+                            Pazartesi - Cumartesi: 09:00 - 18:00
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="border-top border-secondary pt-3 pb-2">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <p class="text-muted small mb-0">
+                            © 2024 Kemah Doğal Ürünler Pazarı. Tüm hakları saklıdır.
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <div class="payment-methods">
+                            <i class="fab fa-cc-visa text-muted me-2"></i>
+                            <i class="fab fa-cc-mastercard text-muted me-2"></i>
+                            <i class="fas fa-university text-muted me-2"></i>
+                            <i class="fas fa-mobile-alt text-muted"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Banner -->
+    <div id="cookieBanner" class="cookie-banner">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-md-7">
+                    <h6 class="mb-2">🍪 Çerez Kullanımı</h6>
+                    <p class="mb-0">
+                        Web sitemizde size en iyi deneyimi sunabilmek için çerezleri kullanıyoruz. 
+                        Bu site ile devam ederek çerez kullanımını kabul etmiş olursunuz.
+                    </p>
+                </div>
+                <div class="col-lg-4 col-md-5">
+                    <div class="d-flex justify-content-end flex-wrap gap-2 mt-3 mt-md-0">
+                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="showCookieSettings()">
+                            <i class="fas fa-cog"></i> Ayarlar
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="rejectCookies()">
+                            <i class="fas fa-times"></i> Reddet
+                        </button>
+                        <button type="button" class="btn btn-success btn-sm" onclick="acceptAllCookies()">
+                            <i class="fas fa-check"></i> Kabul Et
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS - Inline -->
+    <script>
+// Kemah Doğal Ürünler Pazarı - Ana JavaScript
+
+document.addEventListener('DOMContentLoaded', function() {
+    initializeComponents();
+    addSmoothScrolling();
+    initializeTooltips();
+    initializeCart();
+    initializeSearch();
+    initializeAnimations();
+    initializeCookieBanner();
+});
+
+function initializeComponents() {
+    console.log('Kemah Doğal Ürünler Pazarı yüklendi');
+    initializeFormValidations();
+    initializeLazyLoading();
+}
+
+function addSmoothScrolling() {
+    const links = document.querySelectorAll('a[href^="#"]');
+    
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+}
+
+function initializeTooltips() {
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+}
+
+function initializeCart() {
+    updateCartCount();
+    
+    const addToCartButtons = document.querySelectorAll('[data-product-id]');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const productId = this.getAttribute('data-product-id');
+            const quantity = this.getAttribute('data-quantity') || 1;
+            
+            addToCart(productId, quantity);
+        });
+    });
+}
+
+function addToCart(productId, quantity = 1) {
+    const button = document.querySelector(`[data-product-id="${productId}"]`);
+    const originalText = button.innerHTML;
+    
+    fetch('/sepet/ekle', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `product_id=${productId}&quantity=${quantity}`
+    })
+    .then(response => response.text())
+    .then(data => {
+        showNotification('Ürün sepete eklendi!', 'success');
+        updateCartCount();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Ürün sepete eklenirken bir hata oluştu!', 'error');
+    });
+}
+
+function updateCartCount() {
+    fetch('/api/cart/count')
+        .then(response => response.json())
+        .then(data => {
+            const cartCountElement = document.getElementById('cart-count');
+            if (cartCountElement) {
+                cartCountElement.textContent = data.count;
+            }
+        })
+        .catch(error => {
+            console.log('Cart count update failed:', error);
+            const cartCountElement = document.getElementById('cartCount');
+            if (cartCountElement) {
+                cartCountElement.textContent = '0';
+            }
+        });
+}
+
+function initializeSearch() {
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        let searchTimeout;
+        
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                performSearch(this.value);
+            }, 300);
+        });
+    }
+}
+
+function performSearch(query) {
+    if (query.length < 2) return;
+    console.log('Searching for:', query);
+}
+
+function initializeAnimations() {
+    const cards = document.querySelectorAll('.card');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+            }
+        });
+    });
+    
+    cards.forEach(card => {
+        observer.observe(card);
+    });
+}
+
+function initializeFormValidations() {
+    const forms = document.querySelectorAll('form');
+    
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            if (!this.checkValidity()) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            this.classList.add('was-validated');
+        });
+    });
+}
+
+function initializeLazyLoading() {
+    const images = document.querySelectorAll('img[data-src]');
+    
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+    notification.style.top = '20px';
+    notification.style.right = '20px';
+    notification.style.zIndex = '9999';
+    notification.style.minWidth = '300px';
+    
+    notification.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 5000);
+}
+
+function formatCurrency(amount) {
+    return new Intl.NumberFormat('tr-TR', {
+        style: 'currency',
+        currency: 'TRY'
+    }).format(amount);
+}
+
+function formatDate(date) {
+    return new Intl.DateTimeFormat('tr-TR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    }).format(new Date(date));
+}
+
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
+function initializeCookieBanner() {
+    const cookieBanner = document.getElementById('cookieBanner');
+    const cookieConsent = localStorage.getItem('cookieConsent');
+    
+    console.log('Cookie banner element:', cookieBanner);
+    console.log('Cookie consent:', cookieConsent);
+    
+    if (cookieBanner) {
+        cookieBanner.style.display = 'block !important';
+        cookieBanner.classList.remove('hidden');
+        
+        cookieBanner.style.position = 'fixed';
+        cookieBanner.style.bottom = '0';
+        cookieBanner.style.left = '0';
+        cookieBanner.style.right = '0';
+        cookieBanner.style.zIndex = '9999';
+        cookieBanner.style.width = '100%';
+        cookieBanner.style.visibility = 'visible';
+        cookieBanner.style.opacity = '1';
+        
+        const acceptBtn = document.getElementById('acceptCookiesBtn');
+        const rejectBtn = document.getElementById('rejectCookiesBtn');
+        
+        if (acceptBtn) {
+            acceptBtn.addEventListener('click', function() {
+                console.log('Accept button clicked via event listener');
+                acceptAllCookies();
+            });
+        }
+        
+        if (rejectBtn) {
+            rejectBtn.addEventListener('click', function() {
+                console.log('Reject button clicked via event listener');
+                rejectCookies();
+            });
+        }
+        
+        if (cookieConsent === 'accepted' || cookieConsent === 'rejected') {
+            hideCookieBanner();
+        } else {
+            console.log('Cookie banner is visible and fixed at bottom');
+            cookieBanner.style.transition = 'all 0.4s ease';
+        }
+    } else {
+        console.error('Cookie banner element not found!');
+    }
+}
+
+window.acceptAllCookies = function() {
+    console.log('Accept all cookies clicked');
+    
+    try {
+        localStorage.setItem('cookieConsent', 'accepted');
+        
+        const cookieBanner = document.getElementById('cookieBanner');
+        if (cookieBanner) {
+            cookieBanner.style.display = 'none';
+            cookieBanner.classList.add('hidden');
+            console.log('Banner hidden successfully');
+        }
+        
+        document.body.style.paddingBottom = '0';
+        alert('Çerezler kabul edildi!');
+        
+        console.log('Cookies accepted and banner hidden');
+    } catch (error) {
+        console.error('Error in acceptAllCookies:', error);
+        alert('Bir hata oluştu!');
+    }
+}
+
+window.rejectCookies = function() {
+    console.log('Reject cookies clicked');
+    
+    try {
+        localStorage.setItem('cookieConsent', 'rejected');
+        
+        const cookieBanner = document.getElementById('cookieBanner');
+        if (cookieBanner) {
+            cookieBanner.style.display = 'none';
+            cookieBanner.classList.add('hidden');
+            console.log('Banner hidden successfully');
+        }
+        
+        document.body.style.paddingBottom = '0';
+        alert('Çerezler reddedildi!');
+        
+        console.log('Cookies rejected and banner hidden');
+    } catch (error) {
+        console.error('Error in rejectCookies:', error);
+        alert('Bir hata oluştu!');
+    }
+}
+
+window.showCookieSettings = function() {
+    console.log('Show cookie settings clicked');
+    showNotification('Çerez ayarları yakında eklenecek!', 'info');
+}
+
+function hideCookieBanner() {
+    const cookieBanner = document.getElementById('cookieBanner');
+    console.log('Hiding cookie banner:', cookieBanner);
+    
+    if (cookieBanner) {
+        cookieBanner.style.transition = 'all 0.4s ease';
+        cookieBanner.classList.add('hidden');
+        
+        document.body.style.paddingBottom = '0';
+        
+        setTimeout(() => {
+            if (cookieBanner.classList.contains('hidden')) {
+                cookieBanner.style.display = 'none';
+                console.log('Cookie banner completely hidden');
+            }
+        }, 400);
+        
+        console.log('Cookie banner hidden after user consent');
+    } else {
+        console.error('Cookie banner not found for hiding');
+    }
+}
+
+function initializeNewsletterForm() {
+    const newsletterForm = document.querySelector('.newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = this.querySelector('input[type="email"]').value;
+            if (email) {
+                showNotification('E-posta adresiniz kaydedildi!', 'success');
+                this.reset();
+            }
+        });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    initializeNewsletterForm();
+});
+
+window.KemahApp = {
+    addToCart,
+    updateCartCount,
+    showNotification,
+    formatCurrency,
+    formatDate,
+    debounce,
+    throttle,
+    acceptAllCookies,
+    rejectCookies,
+    showCookieSettings
+};
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

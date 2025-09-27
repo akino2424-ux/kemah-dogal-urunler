@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+
+{% block title %}Blog Etiketleri - Kemah{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="fas fa-tags me-2"></i>Blog Etiketleri</h2>
+                <div class="d-flex gap-2">
+                    <a href="{{ url_for('admin_blog_management') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Blog Yönetimine Dön
+                    </a>
+                    <button class="btn btn-primary" onclick="showAddTagModal()">
+                        <i class="fas fa-plus me-2"></i>Yeni Etiket Ekle
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Etiketler Listesi -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Mevcut Etiketler</h5>
+                </div>
+                <div class="card-body">
+                    {% if tags %}
+                        <div class="row">
+                            {% for tag in tags %}
+                                <div class="col-md-4 mb-3">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <span class="badge {{ tag.color }} fs-6">{{ tag.name }}</span>
+                                                <div class="btn-group btn-group-sm">
+                                                    <button class="btn btn-outline-primary" onclick="editTag({{ tag.id }})" title="Düzenle">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-danger" onclick="deleteTag({{ tag.id }}, '{{ tag.name }}')" title="Sil">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            {% if tag.description %}
+                                                <p class="text-muted small mb-2">{{ tag.description }}</p>
+                                            {% endif %}
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small class="text-muted">
+                                                    <i class="fas fa-palette me-1"></i>{{ tag.color }}
+                                                </small>
+                                                <span class="badge bg-{{ 'success' if tag.is_active else 'secondary' }}">
+                                                    {{ 'Aktif' if tag.is_active else 'Pasif' }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-tags fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">Henüz etiket bulunmuyor</h5>
+                            <p class="text-muted">İlk etiketinizi oluşturmak için "Yeni Etiket Ekle" butonuna tıklayın</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Etiket Ekleme/Düzenleme Modal -->
+<div class="modal fade" id="tagModal" tabindex="-1" aria-labelledby="tagModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tagModalLabel">Yeni Etiket</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="tagForm">
+                    <div class="mb-3">
+                        <label for="tag_name" class="form-label">Etiket Adı *</label>
+                        <input type="text" class="form-control" id="tag_name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tag_color" class="form-label">Renk *</label>
+                        <select class="form-select" id="tag_color" name="color" required>
+                            {% for color_code, color_name in color_options %}
+                                <option value="{{ color_code }}">{{ color_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tag_description" class="form-label">Açıklama</label>
+                        <textarea class="form-control" id="tag_description" name="description" rows="3" placeholder="Etiket hakkında kısa açıklama..."></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag_is_active" name="is_active" checked>
+                            <label class="form-check-label" for="tag_is_active">
+                                Aktif
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-primary" onclick="saveTag()">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Başarı Mesajı -->
+<div id="successAlert" class="alert alert-success alert-dismissible fade" role="alert" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+    <i class="fas fa-check-circle me-2"></i>
+    <span id="successMessage">İşlem başarıyla tamamlandı!</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+
+<!-- Hata Mesajı -->
+<div id="errorAlert" class="alert alert-danger alert-dismissible fade" role="alert" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+    <i class="fas fa-exclamation-circle me-2"></i>
+    <span id="errorMessage">Bir hata oluştu!</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let currentTagId = null;
+
+function showAddTagModal() {
+    currentTagId = null;
+    document.getElementById('tagForm').reset();
+    document.getElementById('tagModalLabel').textContent = 'Yeni Etiket';
+    document.getElementById('tag_is_active').checked = true;
+    
+    const modal = new bootstrap.Modal(document.getElementById('tagModal'));
+    modal.show();
+}
+
+function editTag(tagId) {
+    // Etiket bilgilerini getir
+    fetch(`/api/blog-tag/${tagId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const tag = data.tag;
+                currentTagId = tag.id;
+                
+                document.getElementById('tag_name').value = tag.name;
+                document.getElementById('tag_color').value = tag.color;
+                document.getElementById('tag_description').value = tag.description || '';
+                document.getElementById('tag_is_active').checked = tag.is_active;
+                
+                document.getElementById('tagModalLabel').textContent = 'Etiketi Düzenle';
+                
+                const modal = new bootstrap.Modal(document.getElementById('tagModal'));
+                modal.show();
+            } else {
+                showError('Etiket bilgileri yüklenemedi!');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showError('Bir hata oluştu!');
+        });
+}
+
+function deleteTag(tagId, tagName) {
+    if (!confirm(`"${tagName}" etiketini silmek istediğinizden emin misiniz?`)) {
+        return;
+    }
+    
+    fetch('/api/delete-blog-tag', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({tag_id: tagId})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showSuccess(data.message);
+            setTimeout(() => location.reload(), 1500);
+        } else {
+            showError(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showError('Bir hata oluştu!');
+    });
+}
+
+function saveTag() {
+    const form = document.getElementById('tagForm');
+    const formData = new FormData(form);
+    
+    const data = {
+        name: formData.get('name'),
+        color: formData.get('color'),
+        description: formData.get('description'),
+        is_active: formData.get('is_active') === 'on'
+    };
+    
+    if (!data.name) {
+        showError('Etiket adı gerekli!');
+        return;
+    }
+    
+    const url = currentTagId ? '/api/update-blog-tag' : '/api/add-blog-tag';
+    if (currentTagId) {
+        data.tag_id = currentTagId;
+    }
+    
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showSuccess(data.message);
+            const modal = bootstrap.Modal.getInstance(document.getElementById('tagModal'));
+            modal.hide();
+            setTimeout(() => location.reload(), 1500);
+        } else {
+            showError(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showError('Bir hata oluştu!');
+    });
+}
+
+function showSuccess(message) {
+    const alert = document.getElementById('successAlert');
+    const messageEl = document.getElementById('successMessage');
+    messageEl.textContent = message;
+    alert.classList.add('show');
+    
+    setTimeout(() => {
+        alert.classList.remove('show');
+    }, 3000);
+}
+
+function showError(message) {
+    const alert = document.getElementById('errorAlert');
+    const messageEl = document.getElementById('errorMessage');
+    messageEl.textContent = message;
+    alert.classList.add('show');
+    
+    setTimeout(() => {
+        alert.classList.remove('show');
+    }, 5000);
+}
+</script>
+{% endblock %}
+

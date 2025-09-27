@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sipariş Yazdır - {{ order.order_number }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #28a745;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .company-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+        .order-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .info-section {
+            margin-bottom: 25px;
+        }
+        .info-section h3 {
+            color: #28a745;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .info-item {
+            margin-bottom: 10px;
+        }
+        .info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 120px;
+        }
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .items-table th,
+        .items-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .items-table th {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+        }
+        .items-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .total-row {
+            background-color: #e8f5e8 !important;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        @media print {
+            body { margin: 0; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="company-name">KEMAH DOĞAL ÜRÜNLER PAZARI</div>
+        <div class="order-title">SİPARİŞ DETAYI</div>
+        <div><strong>Sipariş No:</strong> {{ order.order_number }}</div>
+        <div><strong>Tarih:</strong> {{ order.created_at }}</div>
+    </div>
+
+    <div class="info-section">
+        <h3>Müşteri Bilgileri</h3>
+        <div class="info-grid">
+            <div>
+                <div class="info-item">
+                    <span class="info-label">Ad Soyad:</span>
+                    {{ order.first_name or order.user_first_name or 'Misafir' }} {{ order.last_name or order.user_last_name or 'Kullanıcı' }}
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Email:</span>
+                    {{ order.email or order.user_email or 'N/A' }}
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Telefon:</span>
+                    {{ order.phone or order.user_phone or 'N/A' }}
+                </div>
+            </div>
+            <div>
+                <div class="info-item">
+                    <span class="info-label">Şehir:</span>
+                    {{ order.city or 'N/A' }}
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Posta Kodu:</span>
+                    {{ order.postal_code or 'N/A' }}
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Ödeme:</span>
+                    {% if order.payment_method == 'cash_on_delivery' %}
+                        Kapıda Ödeme
+                    {% elif order.payment_method == 'bank_transfer' %}
+                        Banka Havalesi
+                    {% else %}
+                        {{ order.payment_method or 'N/A' }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-section">
+        <h3>Adres Bilgileri</h3>
+        <div class="info-item">
+            <span class="info-label">Teslimat Adresi:</span><br>
+            {{ order.shipping_address or 'Belirtilmemiş' }}
+        </div>
+        {% if order.billing_address %}
+        <div class="info-item">
+            <span class="info-label">Fatura Adresi:</span><br>
+            {{ order.billing_address }}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="info-section">
+        <h3>Sipariş Öğeleri</h3>
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th>Ürün</th>
+                    <th>Adet</th>
+                    <th>Birim Fiyat</th>
+                    <th>Toplam</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order.items %}
+                <tr>
+                    <td>{{ item.product_name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.price }}₺</td>
+                    <td>{{ item.total }}₺</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr class="total-row">
+                    <td colspan="3"><strong>TOPLAM</strong></td>
+                    <td><strong>{{ order.total_amount }}₺</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    {% if order.notes %}
+    <div class="info-section">
+        <h3>Notlar</h3>
+        <p>{{ order.notes }}</p>
+    </div>
+    {% endif %}
+
+    <div class="footer">
+        <p>Bu belge {{ order.created_at }} tarihinde oluşturulmuştur.</p>
+        <p>KEMAH DOĞAL ÜRÜNLER PAZARI - Sipariş Takip Sistemi</p>
+    </div>
+
+    <div class="no-print" style="text-align: center; margin-top: 20px;">
+        <button onclick="window.print()" style="background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+            🖨️ Yazdır
+        </button>
+        <button onclick="window.close()" style="background-color: #6c757d; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-left: 10px;">
+            ❌ Kapat
+        </button>
+    </div>
+</body>
+</html>

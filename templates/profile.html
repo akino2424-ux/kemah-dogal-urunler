@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block title %}Profil - {{ site_title }}{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="py-3 bg-light">
+    <div class="container">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Ana Sayfa</a></li>
+            <li class="breadcrumb-item active">Profil</li>
+        </ol>
+    </div>
+</nav>
+
+<!-- Profile Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <!-- Profile Card -->
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-gradient text-white text-center py-4" style="background: linear-gradient(135deg, #343a40 0%, #495057 100%);">
+                        <div class="profile-avatar mb-3">
+                            <i class="fas fa-user-circle" style="font-size: 4rem; color: white !important;"></i>
+                        </div>
+                        <h4 class="mb-0" style="color: black !important;">{{ user.first_name }} {{ user.last_name }}</h4>
+                        <p class="mb-0 opacity-75" style="color: black !important;">@{{ user.username }}</p>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="profile-info">
+                            <div class="info-item mb-3">
+                                <i class="fas fa-envelope text-primary me-2"></i>
+                                <span class="fw-bold" style="color: #333 !important;">E-posta:</span>
+                                <p class="mb-0" style="color: #666 !important;">{{ user.email }}</p>
+                            </div>
+                            
+                            {% if user.phone %}
+                            <div class="info-item mb-3">
+                                <i class="fas fa-phone text-primary me-2"></i>
+                                <span class="fw-bold" style="color: #333 !important;">Telefon:</span>
+                                <p class="mb-0" style="color: #666 !important;">{{ user.phone }}</p>
+                            </div>
+                            {% endif %}
+                            
+                            {% if user.address %}
+                            <div class="info-item mb-3">
+                                <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                <span class="fw-bold" style="color: #333 !important;">Adres:</span>
+                                <p class="mb-0" style="color: #666 !important;">{{ user.address }}</p>
+                            </div>
+                            {% endif %}
+                            
+                            <div class="info-item mb-3">
+                                <i class="fas fa-calendar text-primary me-2"></i>
+                                <span class="fw-bold" style="color: #333 !important;">Üyelik Tarihi:</span>
+                                <p class="mb-0" style="color: #666 !important;">{{ user.created_at.strftime('%d.%m.%Y') if user.created_at else 'Bilinmiyor' }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 mt-4">
+                            <a href="{{ url_for('update_profile') }}" class="btn btn-primary">
+                                <i class="fas fa-edit me-2"></i>Profili Düzenle
+                            </a>
+                            <a href="{{ url_for('change_password') }}" class="btn btn-outline-secondary">
+                                <i class="fas fa-key me-2"></i>Şifre Değiştir
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-8 col-md-6">
+                <!-- Account Stats -->
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-0 bg-light h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-shopping-cart text-primary mb-3" style="font-size: 2.5rem;"></i>
+                                <h5 class="card-title" style="color: #333 !important;">Toplam Sipariş</h5>
+                                <h3 class="text-primary mb-0">0</h3>
+                                <small style="color: #666 !important;">Henüz sipariş vermediniz</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-0 bg-light h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-heart text-danger mb-3" style="font-size: 2.5rem;"></i>
+                                <h5 class="card-title" style="color: #333 !important;">Favoriler</h5>
+                                <h3 class="text-danger mb-0">0</h3>
+                                <small style="color: #666 !important;">Henüz favori ürününüz yok</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Orders -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0" style="color: #333 !important;">
+                            <i class="fas fa-history me-2"></i>Son Siparişler
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center py-5">
+                            <i class="fas fa-shopping-bag text-muted mb-3" style="font-size: 3rem;"></i>
+                            <h6 style="color: #666 !important;">Henüz sipariş vermediniz</h6>
+                            <p style="color: #666 !important;" class="small">İlk siparişinizi vermek için ürünlerimizi inceleyin.</p>
+                            <a href="{{ url_for('index') }}" class="btn btn-primary">
+                                <i class="fas fa-shopping-cart me-2"></i>Alışverişe Başla
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.card {
+    border-radius: 15px;
+}
+
+.profile-avatar {
+    display: flex;
+    justify-content: center;
+}
+
+.info-item {
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 15px;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.bg-gradient {
+    border-radius: 15px 15px 0 0;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    border: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+}
+</style>
+{% endblock %}
