@@ -1,6 +1,56 @@
-// Kemah Doğal Ürünler Pazarı - Ana JavaScript
+// Kemah Doğal Ürünler Pazarı - Ana JavaScript - Cross-Platform Compatible
 
-document.addEventListener('DOMContentLoaded', function() {
+// Cross-Platform Event Listeners
+function addEventListeners() {
+    // Touch and mouse events for cross-platform compatibility
+    const touchEvents = ['touchstart', 'touchend', 'touchmove'];
+    const mouseEvents = ['mousedown', 'mouseup', 'mousemove'];
+    
+    // Add event listeners for both touch and mouse
+    touchEvents.forEach(event => {
+        document.addEventListener(event, handleTouchEvent, { passive: true });
+    });
+    
+    mouseEvents.forEach(event => {
+        document.addEventListener(event, handleMouseEvent, { passive: true });
+    });
+}
+
+function handleTouchEvent(e) {
+    // Handle touch events
+    if (e.type === 'touchstart') {
+        e.target.classList.add('touched');
+    } else if (e.type === 'touchend') {
+        setTimeout(() => {
+            e.target.classList.remove('touched');
+        }, 150);
+    }
+}
+
+function handleMouseEvent(e) {
+    // Handle mouse events
+    if (e.type === 'mousedown') {
+        e.target.classList.add('clicked');
+    } else if (e.type === 'mouseup') {
+        setTimeout(() => {
+            e.target.classList.remove('clicked');
+        }, 150);
+    }
+}
+
+// Cross-Platform DOM Ready
+function domReady(fn) {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fn);
+    } else {
+        fn();
+    }
+}
+
+domReady(function() {
+    console.log('Kemah Doğal Ürünler Pazarı yüklendi - Cross-Platform Compatible');
+    addEventListeners();
+    
     // Initialize all components
     initializeComponents();
     

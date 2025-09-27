@@ -28,10 +28,10 @@ app.config['JSON_AS_ASCII'] = False
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
 
-# Static dosyalar için özel route - Render.com ve tüm servisler için
+# Static dosyalar için özel route - Cross-Platform Compatible
 @app.route('/static/<path:filename>')
 def static_files(filename):
-    """Render.com ve tüm servisler için özel static dosya servisi"""
+    """Cross-Platform static dosya servisi - Tüm cihazlarda çalışır"""
     from flask import send_from_directory, make_response, request
     import os
     import mimetypes
@@ -47,7 +47,7 @@ def static_files(filename):
     
     response = make_response(content)
     
-    # Render.com ve tüm servisler için headers
+    # Cross-Platform Headers - Tüm cihazlarda çalışır
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
@@ -56,6 +56,12 @@ def static_files(filename):
     response.headers['Cross-Origin-Resource-Policy'] = 'cross-origin'
     response.headers['Cache-Control'] = 'public, max-age=3600'
     response.headers['Vary'] = 'Accept-Encoding'
+    
+    # Cross-Platform Compatibility Headers
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
+    response.headers['Permissions-Policy'] = 'geolocation=(), microphone=(), camera=()'
     
     # MIME-Type otomatik tespit
     mime_type, _ = mimetypes.guess_type(file_path)
