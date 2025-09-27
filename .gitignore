@@ -30,4 +30,4 @@ venv.bak/
 .vscode/
 .idea/
 *.log
-kemah.db
+# kemah.db - Veritabanını GitHub'a dahil et
